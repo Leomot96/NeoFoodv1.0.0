@@ -1,0 +1,221 @@
+.backdrop {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(2, 6, 23, 0.85);
+  backdrop-filter: blur(6px);
+  z-index: 1050;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  animation: fadeIn 0.15s ease-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.modal {
+  background: var(--bg-card, #0f172a);
+  border-radius: var(--radius-lg, 12px);
+  width: 100%;
+  max-width: 520px;
+  max-height: 92vh;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.5), 0 10px 10px -5px rgba(0, 0, 0, 0.3);
+  overflow: hidden;
+  border: 1.5px solid var(--border-card, #334155);
+  color: var(--text-main, #f8fafc);
+}
+
+.header {
+  padding: 1rem 1.25rem;
+  border-bottom: 2px solid var(--brand-primary, #4f46e5);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: var(--bg-card-secondary, #1e293b);
+}
+
+.headerLeft {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.iconWrap {
+  width: 38px;
+  height: 38px;
+  border-radius: 10px;
+  background: rgba(79, 70, 229, 0.15);
+  color: var(--brand-primary, #4f46e5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.title {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--text-main, #f8fafc);
+  margin: 0;
+}
+
+.subtitle {
+  font-size: 0.75rem;
+  color: var(--text-muted, #94a3b8);
+  margin: 0;
+}
+
+.headerActions {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.widthSwitch {
+  display: flex;
+  background: var(--bg-input, #020617);
+  border: 1px solid var(--border-card, #334155);
+  padding: 2px;
+  border-radius: 8px;
+  gap: 2px;
+}
+
+.switchBtn {
+  border: none;
+  background: transparent;
+  padding: 4px 10px;
+  border-radius: 6px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--text-muted, #94a3b8);
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.switchBtnActive {
+  background: var(--brand-gradient, linear-gradient(135deg, #4f46e5 0%, #3b82f6 50%, #10b981 100%));
+  color: #ffffff;
+  box-shadow: 0 0 10px var(--brand-glow, rgba(79, 70, 229, 0.25));
+}
+
+.closeBtn {
+  background: transparent;
+  border: none;
+  color: var(--text-muted, #94a3b8);
+  cursor: pointer;
+  padding: 4px;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.15s ease;
+}
+
+.closeBtn:hover {
+  background: var(--bg-card, #0f172a);
+  color: var(--text-main, #f8fafc);
+}
+
+.previewContainer {
+  flex: 1;
+  background: #090d16;
+  overflow-y: auto;
+  padding: 1.5rem 1rem;
+  display: flex;
+  justify-content: center;
+  min-height: 340px;
+}
+
+.paperRoll {
+  background: #ffffff;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.6);
+  border-radius: 4px;
+  position: relative;
+  transition: width 0.2s ease;
+  overflow: hidden;
+}
+
+.paperRoll80 {
+  width: 340px;
+}
+
+.paperRoll58 {
+  width: 250px;
+}
+
+.paperEdgeTop {
+  height: 6px;
+  background: repeating-linear-gradient(
+    -45deg,
+    #ffffff,
+    #ffffff 4px,
+    #f4f4f5 4px,
+    #f4f4f5 8px
+  );
+  border-bottom: 1px dashed #e4e4e7;
+}
+
+.paperEdgeBottom {
+  height: 8px;
+  background: repeating-linear-gradient(
+    45deg,
+    #ffffff,
+    #ffffff 4px,
+    #f4f4f5 4px,
+    #f4f4f5 8px
+  );
+  border-top: 1px dashed #e4e4e7;
+}
+
+.ticketFrame {
+  width: 100%;
+  height: 440px;
+  border: none;
+  display: block;
+}
+
+.footer {
+  padding: 0.875rem 1.25rem;
+  border-top: 1px solid var(--border-subtle, #1e293b);
+  background: var(--bg-card-secondary, #1e293b);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+@media (max-width: 640px) {
+  .backdrop {
+    padding: 0 !important;
+    align-items: flex-end !important;
+  }
+
+  .modal {
+    max-height: 94vh !important;
+    border-bottom-left-radius: 0 !important;
+    border-bottom-right-radius: 0 !important;
+    border-top-left-radius: 1.25rem !important;
+    border-top-right-radius: 1.25rem !important;
+  }
+
+  .header {
+    padding: 0.75rem 1rem !important;
+  }
+
+  .previewContainer {
+    padding: 1rem 0.5rem !important;
+  }
+
+  .paperRoll80 {
+    width: 300px !important;
+    max-width: 95% !important;
+  }
+
+  .footer {
+    padding: 0.75rem 1rem !important;
+    padding-bottom: max(0.85rem, env(safe-area-inset-bottom, 0)) !important;
+  }
+}

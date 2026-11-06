@@ -1,0 +1,75 @@
+.stickyNav {
+  position: sticky;
+  top: calc(env(safe-area-inset-top, 0px) + 6.75rem);
+  z-index: 30;
+  background-color: #0b0f19;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  padding: 0.6rem 0;
+  backdrop-filter: blur(12px);
+}
+
+.scrollWrapper {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  overflow-x: auto;
+  padding: 0 1rem;
+  scrollbar-width: none;
+  -webkit-overflow-scrolling: touch;
+}
+
+.scrollWrapper::-webkit-scrollbar {
+  display: none;
+}
+
+.chip {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.45rem 0.85rem;
+  border-radius: 9999px;
+  background-color: #161f30;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  color: #94a3b8;
+  font-size: 0.82rem;
+  font-weight: 600;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  flex-shrink: 0;
+}
+
+.chip:active {
+  transform: scale(0.96);
+}
+
+.chipActive {
+  background: var(--brand-gradient, linear-gradient(135deg, #4f46e5 0%, #3b82f6 50%, #10b981 100%));
+  color: #ffffff;
+  border-color: transparent;
+  box-shadow: 0 3px 12px rgba(79, 70, 229, 0.4);
+}
+
+.chipIcon {
+  font-size: 0.95rem;
+  line-height: 1;
+}
+
+.chipLabel {
+  letter-spacing: -0.01em;
+}
+
+.chipBadge {
+  font-size: 0.7rem;
+  padding: 0.1rem 0.35rem;
+  border-radius: 9999px;
+  background-color: rgba(255, 255, 255, 0.15);
+  color: inherit;
+  font-weight: 700;
+  margin-left: 0.15rem;
+}
+
+.chipActive .chipBadge {
+  background-color: rgba(0, 0, 0, 0.25);
+  color: #ffffff;
+}

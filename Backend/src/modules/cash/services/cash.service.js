@@ -1,0 +1,560 @@
+const prisma = require('../../../config/prisma');
+
+// Helper para procesar medios de pago (soporta cobro único y cuenta dividida / pagos mixtos)
+function iterateSalePayments(sales, callback) {
+  sales?.forEach(sale => {
+    if (sale.payments && sale.payments.length > 0) {
+      sale.payments.forEach(p => {
+        const methodName = p.paymentMethod?.name || 'Desconocido';
+        const amount = parseFloat(p.amount || 0);
+        callback(methodName, amount, sale);
+      });
+    } else {
+      // Si la venta fue originada a crédito (tiene registro DEBT en customerCredits),
+      // sus cobros reales ya se contabilizan vía session.customerCredits (type: 'PAYMENT')
+      const hadInitialDebt = Array.isArray(sale.customerCredits) && sale.customerCredits.some(c => c.type === 'DEBT');
+      if (hadInitialDebt) return;
+      const methodName = sale.paymentMethod?.name || 'Desconocido';
+      const amount = parseFloat(sale.finalAmount || 0);
+      callback(methodName, amount, sale);
+    }
+  });
+}
+
+// Helper para detectar movimientos de caja correspondientes a cobro/abono de facturas o créditos
+function isAbonoOrInvoicePaymentMovement(description) {
+  if (!description || typeof description !== 'string') return false;
+  return /^(abono\s*(a\s*)?factura|pago\s*factura|abono\s*de\s*cliente)/i.test(description.trim());
+}
+
+class CashService {
+  
+  async openSession(userId, openingAmount) {
+    const parsedOpening = parseFloat(openingAmount);
+    if (!Number.isFinite(parsedOpening) || parsedOpening < 0) {
+      throw Object.assign(new Error('El monto de apertura debe ser un número válido mayor o igual a 0'), { statusCode: 400 });
+    }
+
+    return await prisma.$transaction(async (tx) => {
+      const activeSession = await tx.cashSession.findFirst({
+        where: { userId, status: 'OPEN' }
+      });
+
+      if (activeSession) {
+        throw Object.assign(new Error('El usuario ya tiene una sesión de caja abierta'), { statusCode: 400 });
+      }
+
+      return await tx.cashSession.create({
+        data: {
+          userId,
+          openingAmount: parsedOpening,
+          status: 'OPEN'
+        }
+      });
+    });
+  }
+
+  async closeSession(sessionId, userId, closingAmount, userRole = null) {
+    const parsedClosing = parseFloat(closingAmount);
+    if (!Number.isFinite(parsedClosing) || parsedClosing < 0) {
+      throw Object.assign(new Error('El monto de cierre debe ser un número válido mayor o igual a 0'), { statusCode: 400 });
+    }
+
+    const session = await prisma.cashSession.findFirst({
+      where: { id: sessionId }
+    });
+
+    if (!session) throw Object.assign(new Error('Sesión de caja no encontrada'), { statusCode: 404 });
+    const normalizedRole = String(userRole || '').trim();
+    const canForceClose = ['Administrador', 'Supervisor'].includes(normalizedRole);
+    if (session.userId !== userId && !canForceClose) {
+      throw Object.assign(new Error('Solo el titular o un Administrador/Supervisor puede cerrar esta caja'), { statusCode: 403 });
+    }
+    if (session.status === 'CLOSED') throw Object.assign(new Error('La caja ya se encuentra cerrada'), { statusCode: 400 });
+
+    return await prisma.cashSession.update({
+      where: { id: sessionId },
+      data: {
+        status: 'CLOSED',
+        closingAmount: parsedClosing,
+        closedAt: new Date()
+      }
+    });
+  }
+
+  async registerMovement(sessionId, userId, data, userRole = null) {
+    const { type, amount, description } = data;
+    const parsedAmount = parseFloat(amount);
+    if (!['IN', 'OUT'].includes(type)) {
+      throw Object.assign(new Error('El tipo de movimiento debe ser IN o OUT'), { statusCode: 400 });
+    }
+    if (!Number.isFinite(parsedAmount) || parsedAmount <= 0) {
+      throw Object.assign(new Error('El monto del movimiento debe ser mayor a 0'), { statusCode: 400 });
+    }
+
+    const session = await prisma.cashSession.findFirst({
+      where: { id: sessionId }
+    });
+    
+    if (!session || session.status === 'CLOSED') {
+      throw Object.assign(new Error('La sesión de caja no existe o está cerrada'), { statusCode: 400 });
+    }
+    
+    const normalizedRole = String(userRole || '').trim();
+    const canManageMovement = ['Administrador', 'Supervisor'].includes(normalizedRole);
+    if (session.userId !== userId && !canManageMovement) {
+      throw Object.assign(new Error('No tiene permisos para registrar movimientos en esta caja'), { statusCode: 403 });
+    }
+
+    return await prisma.cashMovement.create({
+      data: {
+        cashSessionId: sessionId,
+        type,
+        amount: parsedAmount,
+        description
+      }
+    });
+  }
+
+  async createAudit(sessionId, auditorId, data) {
+    const { actualAmount, notes } = data;
+    const actual = parseFloat(actualAmount);
+    if (!Number.isFinite(actual) || actual < 0) {
+      throw Object.assign(new Error('El monto físico contado debe ser un número válido mayor o igual a 0'), { statusCode: 400 });
+    }
+
+    return await prisma.$transaction(async (tx) => {
+      const session = await tx.cashSession.findFirst({
+        where: { id: sessionId },
+        include: {
+          sales: { include: { paymentMethod: true, payments: { include: { paymentMethod: true } }, customerCredits: { select: { type: true } } } },
+          cashMovements: true,
+          customerCredits: { include: { paymentMethod: true } }
+        }
+      });
+
+      if (!session) throw Object.assign(new Error('Sesión no encontrada'), { statusCode: 404 });
+      if (session.status !== 'CLOSED') throw Object.assign(new Error('La caja debe estar cerrada para realizar el arqueo'), { statusCode: 400 });
+
+      const existingAudit = await tx.cashAudit.findUnique({ where: { cashSessionId: sessionId } });
+      if (existingAudit) throw Object.assign(new Error('Esta sesión ya fue arqueada'), { statusCode: 400 });
+
+      let expectedCash = parseFloat(session.openingAmount);
+
+      let cashSales = 0;
+      iterateSalePayments(session.sales, (methodName, amount) => {
+        if (methodName.toLowerCase().includes('efectivo')) {
+          cashSales += amount;
+        }
+      });
+      expectedCash += cashSales;
+
+      const movementsIn = session.cashMovements
+        .filter(m => m.type === 'IN' && !isAbonoOrInvoicePaymentMovement(m.description))
+        .reduce((sum, m) => sum + parseFloat(m.amount), 0);
+      const movementsOut = session.cashMovements
+        .filter(m => m.type === 'OUT')
+        .reduce((sum, m) => sum + parseFloat(m.amount), 0);
+
+      const cashAbonos = (session.customerCredits || [])
+        .filter(c => c.type === 'PAYMENT' && c.paymentMethod?.name?.toLowerCase().includes('efectivo'))
+        .reduce((sum, c) => sum + parseFloat(c.amount || 0), 0);
+      
+      expectedCash = expectedCash + movementsIn - movementsOut + cashAbonos;
+
+      const difference = actual - expectedCash;
+
+      const audit = await tx.cashAudit.create({
+        data: {
+          cashSessionId: sessionId,
+          auditorId,
+          cashierId: session.userId,
+          expectedAmount: expectedCash,
+          actualAmount: actual,
+          difference,
+          notes: notes || `Arqueo automático. Faltante/Sobrante: ${difference}`
+        }
+      });
+
+      return audit;
+    });
+  }
+
+  // --- MODIFICADO: Calculamos el Efectivo Esperado aquí para el Frontend ---
+// --- MODIFICADO: Calculamos el Efectivo Esperado y Total de Ventas al vuelo ---
+  async getHistory(filters = {}) {
+    const { userId, status, startDate, endDate } = filters;
+    const where = {};
+
+    if (userId) where.userId = userId;
+    if (status) where.status = status;
+    if (startDate && endDate) {
+      where.openedAt = { gte: new Date(startDate), lte: new Date(endDate) };
+    }
+
+    // 1. OBTENER LAS SESIONES DE LA BASE DE DATOS (Esta era la línea que faltaba)
+    const sessions = await prisma.cashSession.findMany({
+      where,
+      include: {
+        user: { select: { name: true } },
+        cashAudit: { select: { difference: true, actualAmount: true } },
+        cashMovements: { orderBy: { createdAt: 'desc' } },
+        sales: { include: { paymentMethod: true, payments: { include: { paymentMethod: true } }, customerCredits: { select: { type: true } } } }, // Necesario para sumar y desglosar las ventas
+        customerCredits: { include: { paymentMethod: true } } // Añadido para incluir Abonos al total
+      },
+      orderBy: { openedAt: 'desc' },
+      take: 50 // Límite para no saturar memoria en el historial
+    });
+
+    // 2. MAPEAMOS PARA CALCULAR RESÚMENES AL VUELO
+    return sessions.map(session => {
+      let expectedCash = parseFloat(session.openingAmount);
+      
+      // Ignorar movimientos automáticos antiguos para no duplicar sumas
+      const movIn = session.cashMovements
+        .filter(m => m.type === 'IN' && !isAbonoOrInvoicePaymentMovement(m.description))
+        .reduce((acc, m) => acc + parseFloat(m.amount), 0);
+      const movOut = session.cashMovements.filter(m => m.type === 'OUT').reduce((acc, m) => acc + parseFloat(m.amount), 0);
+      
+      // Calcular desglose de ventas y total general (excluyendo créditos)
+      let totalSales = 0;
+      let salesByMethod = {};
+      let cashSales = 0;
+
+      iterateSalePayments(session.sales, (methodName, amount) => {
+        const isCredit = methodName.toLowerCase().includes('crédito') || methodName.toLowerCase().includes('credito') || methodName.toLowerCase().includes('fiao');
+        if (!isCredit) {
+          totalSales += amount;
+          salesByMethod[methodName] = (salesByMethod[methodName] || 0) + amount;
+        }
+        if (methodName.toLowerCase().includes('efectivo')) {
+          cashSales += amount;
+        }
+      });
+
+      // Sumar los abonos reales (CustomerCredit tipo PAYMENT) al total vendido
+      if (session.customerCredits) {
+        session.customerCredits.forEach(credit => {
+          if (credit.type === 'PAYMENT') {
+            const amount = parseFloat(credit.amount);
+            const methodName = credit.paymentMethod?.name || 'Abono Crédito';
+            totalSales += amount;
+            salesByMethod[methodName] = (salesByMethod[methodName] || 0) + amount;
+          }
+        });
+      }
+        
+      let cashAbonos = 0;
+      if (session.customerCredits) {
+        cashAbonos = session.customerCredits
+          .filter(c => c.type === 'PAYMENT' && c.paymentMethod?.name?.toLowerCase().includes('efectivo'))
+          .reduce((acc, c) => acc + parseFloat(c.amount), 0);
+      }
+
+      expectedCash = expectedCash + movIn - movOut + cashSales + cashAbonos;
+
+      // Eliminamos el array masivo de ventas y creditos SOLO de las sesiones cerradas.
+      // Si está ABIERTA, lo dejamos para que el frontend (React) pueda armar el desglose.
+      if (session.status === 'CLOSED') {
+        delete session.sales;
+        delete session.customerCredits;
+      }
+
+      return {
+        ...session,
+        expectedCash,
+        cashSalesCount: cashSales,
+        totalSales,           // <-- Enviamos el total vendido
+        salesByMethod         // <-- Enviamos el desglose por métodos
+      };
+    });
+  }
+
+  async getDailyReport(date) {
+    if (!date || typeof date !== 'string' || !/^\d{4}-\d{2}-\d{2}$/.test(date.trim())) {
+      throw Object.assign(new Error('El parámetro date debe tener formato válido YYYY-MM-DD'), { statusCode: 400 });
+    }
+    const [year, month, day] = date.trim().split('-').map(Number);
+    const startOfDay = new Date(year, month - 1, day, 0, 0, 0, 0);
+    const endOfDay = new Date(year, month - 1, day, 23, 59, 59, 999);
+    if (Number.isNaN(startOfDay.getTime()) || startOfDay.getMonth() !== month - 1 || startOfDay.getDate() !== day) {
+      throw Object.assign(new Error('Fecha proporcionada inválida'), { statusCode: 400 });
+    }
+
+    const sessions = await prisma.cashSession.findMany({
+      where: {
+        openedAt: { gte: startOfDay, lte: endOfDay }
+      },
+      include: {
+        user: { select: { name: true } },
+        cashAudit: { select: { difference: true, actualAmount: true } },
+        cashMovements: { orderBy: { createdAt: 'desc' } },
+        sales: { include: { paymentMethod: true, payments: { include: { paymentMethod: true } }, customerCredits: { select: { type: true } } } },
+        customerCredits: { include: { paymentMethod: true } }
+      },
+      orderBy: { openedAt: 'asc' }
+    });
+
+    let totalSales = 0;
+    let totalIncomes = 0;
+    let totalExpenses = 0;
+    let totalDifferences = 0;
+    let totalMissing = 0;
+    let totalSurplus = 0;
+    let salesByMethod = {};
+
+    const formattedSessions = sessions.map(session => {
+      let sessionTotalSales = 0;
+      let sessionSalesByMethod = {};
+      let cashSales = 0;
+
+      iterateSalePayments(session.sales, (methodName, amt) => {
+        const isCredit = methodName.toLowerCase().includes('crédito') || methodName.toLowerCase().includes('credito') || methodName.toLowerCase().includes('fiao');
+        if (!isCredit) {
+          sessionTotalSales += amt;
+          sessionSalesByMethod[methodName] = (sessionSalesByMethod[methodName] || 0) + amt;
+          salesByMethod[methodName] = (salesByMethod[methodName] || 0) + amt;
+        }
+        if (methodName.toLowerCase().includes('efectivo')) {
+          cashSales += amt;
+        }
+      });
+
+      session.customerCredits?.forEach(credit => {
+        if (credit.type === 'PAYMENT') {
+          const amt = parseFloat(credit.amount || 0);
+          const methodName = credit.paymentMethod?.name || 'Abono Crédito';
+          sessionTotalSales += amt;
+          sessionSalesByMethod[methodName] = (sessionSalesByMethod[methodName] || 0) + amt;
+          salesByMethod[methodName] = (salesByMethod[methodName] || 0) + amt;
+        }
+      });
+
+      totalSales += sessionTotalSales;
+
+      const inc = session.cashMovements
+        ?.filter(m => m.type === 'IN' && !isAbonoOrInvoicePaymentMovement(m.description))
+        .reduce((acc, m) => acc + parseFloat(m.amount || 0), 0) || 0;
+      const exp = session.cashMovements
+        ?.filter(m => m.type === 'OUT')
+        .reduce((acc, m) => acc + parseFloat(m.amount || 0), 0) || 0;
+
+      totalIncomes += inc;
+      totalExpenses += exp;
+
+      let expectedCash = parseFloat(session.openingAmount || 0);
+      const cashAbonos = session.customerCredits
+        ?.filter(c => c.type === 'PAYMENT' && c.paymentMethod?.name?.toLowerCase().includes('efectivo'))
+        .reduce((acc, c) => acc + parseFloat(c.amount || 0), 0) || 0;
+
+      expectedCash = expectedCash + inc - exp + cashSales + cashAbonos;
+
+      const diff = session.closingAmount !== null ? parseFloat(session.closingAmount) - expectedCash : 0;
+      totalDifferences += diff;
+      if (diff < 0) totalMissing += Math.abs(diff);
+      if (diff > 0) totalSurplus += diff;
+
+      return {
+        id: session.id,
+        status: session.status,
+        openedAt: session.openedAt,
+        closedAt: session.closedAt,
+        user: session.user,
+        openingAmount: parseFloat(session.openingAmount || 0),
+        closingAmount: session.closingAmount !== null ? parseFloat(session.closingAmount) : null,
+        expectedCash,
+        difference: diff,
+        totalSales: sessionTotalSales,
+        salesByMethod: sessionSalesByMethod,
+        incomes: inc,
+        expenses: exp,
+        cashMovements: session.cashMovements || []
+      };
+    });
+
+    // Consultar gastos directos y de nómina registrados en el día
+    let directExpensesTotal = 0;
+    let payrollExpensesTotal = 0;
+    try {
+      const expensesList = await prisma.expense.findMany({
+        where: { date: { gte: startOfDay, lte: endOfDay } },
+        select: { amount: true, category: true }
+      });
+      expensesList.forEach(e => {
+        const amt = parseFloat(e.amount || 0);
+        directExpensesTotal += amt;
+        if (e.category === 'Nómina') payrollExpensesTotal += amt;
+      });
+    } catch {}
+
+    return {
+      date,
+      sessionsCount: formattedSessions.length,
+      metrics: {
+        totalSales,
+        totalIncomes,
+        totalExpenses,
+        payrollExpenses: payrollExpensesTotal,
+        directExpenses: directExpensesTotal,
+        netCashFlow: totalSales + totalIncomes - totalExpenses,
+        auditDifferences: totalDifferences,
+        totalMissing,
+        totalSurplus,
+        salesByMethod
+      },
+      sessions: formattedSessions
+    };
+  }
+
+  async getMonthlyReport(year, month) {
+    const parsedYear = parseInt(year, 10);
+    const parsedMonth = parseInt(month, 10);
+    if (!Number.isInteger(parsedYear) || parsedYear < 2000 || parsedYear > 2100 || !Number.isInteger(parsedMonth) || parsedMonth < 1 || parsedMonth > 12) {
+      throw Object.assign(new Error('Los parámetros year (2000-2100) y month (1-12) deben ser válidos'), { statusCode: 400 });
+    }
+    const startDate = new Date(parsedYear, parsedMonth - 1, 1, 0, 0, 0, 0);
+    const endDate = new Date(parsedYear, parsedMonth, 0, 23, 59, 59, 999);
+
+    const sessions = await prisma.cashSession.findMany({
+      where: {
+        openedAt: { gte: startDate, lte: endDate }
+      },
+      include: {
+        user: { select: { name: true } },
+        cashAudit: { select: { difference: true, actualAmount: true } },
+        cashMovements: { orderBy: { createdAt: 'desc' } },
+        sales: { include: { paymentMethod: true, payments: { include: { paymentMethod: true } }, customerCredits: { select: { type: true } } } },
+        customerCredits: { include: { paymentMethod: true } }
+      },
+      orderBy: { openedAt: 'asc' }
+    });
+
+    let totalSales = 0;
+    let totalIncomes = 0;
+    let totalExpenses = 0;
+    let totalDifferences = 0;
+    let totalMissing = 0;
+    let totalSurplus = 0;
+    let salesByMethod = {};
+    const dailyMap = {};
+
+    const formattedSessions = sessions.map(session => {
+      let sessionTotalSales = 0;
+      let sessionSalesByMethod = {};
+      let cashSales = 0;
+
+      iterateSalePayments(session.sales, (methodName, amt) => {
+        const isCredit = methodName.toLowerCase().includes('crédito') || methodName.toLowerCase().includes('credito') || methodName.toLowerCase().includes('fiao');
+        if (!isCredit) {
+          sessionTotalSales += amt;
+          sessionSalesByMethod[methodName] = (sessionSalesByMethod[methodName] || 0) + amt;
+          salesByMethod[methodName] = (salesByMethod[methodName] || 0) + amt;
+        }
+        if (methodName.toLowerCase().includes('efectivo')) {
+          cashSales += amt;
+        }
+      });
+
+      session.customerCredits?.forEach(credit => {
+        if (credit.type === 'PAYMENT') {
+          const amt = parseFloat(credit.amount || 0);
+          const methodName = credit.paymentMethod?.name || 'Abono Crédito';
+          sessionTotalSales += amt;
+          sessionSalesByMethod[methodName] = (sessionSalesByMethod[methodName] || 0) + amt;
+          salesByMethod[methodName] = (salesByMethod[methodName] || 0) + amt;
+        }
+      });
+
+      totalSales += sessionTotalSales;
+
+      const inc = session.cashMovements
+        ?.filter(m => m.type === 'IN' && !isAbonoOrInvoicePaymentMovement(m.description))
+        .reduce((acc, m) => acc + parseFloat(m.amount || 0), 0) || 0;
+      const exp = session.cashMovements
+        ?.filter(m => m.type === 'OUT')
+        .reduce((acc, m) => acc + parseFloat(m.amount || 0), 0) || 0;
+
+      totalIncomes += inc;
+      totalExpenses += exp;
+
+      let expectedCash = parseFloat(session.openingAmount || 0);
+      const cashAbonos = session.customerCredits
+        ?.filter(c => c.type === 'PAYMENT' && c.paymentMethod?.name?.toLowerCase().includes('efectivo'))
+        .reduce((acc, c) => acc + parseFloat(c.amount || 0), 0) || 0;
+
+      expectedCash = expectedCash + inc - exp + cashSales + cashAbonos;
+
+      const diff = session.closingAmount !== null ? parseFloat(session.closingAmount) - expectedCash : 0;
+      totalDifferences += diff;
+      if (diff < 0) totalMissing += Math.abs(diff);
+      if (diff > 0) totalSurplus += diff;
+
+      const dayStr = new Date(session.openedAt).toISOString().split('T')[0];
+      if (!dailyMap[dayStr]) {
+        dailyMap[dayStr] = { date: dayStr, sales: 0, sessionsCount: 0, expenses: 0, incomes: 0, diff: 0 };
+      }
+      dailyMap[dayStr].sales += sessionTotalSales;
+      dailyMap[dayStr].sessionsCount += 1;
+      dailyMap[dayStr].expenses += exp;
+      dailyMap[dayStr].incomes += inc;
+      dailyMap[dayStr].diff += diff;
+
+      return {
+        id: session.id,
+        status: session.status,
+        openedAt: session.openedAt,
+        closedAt: session.closedAt,
+        user: session.user,
+        openingAmount: parseFloat(session.openingAmount || 0),
+        closingAmount: session.closingAmount !== null ? parseFloat(session.closingAmount) : null,
+        expectedCash,
+        difference: diff,
+        totalSales: sessionTotalSales,
+        salesByMethod: sessionSalesByMethod,
+        incomes: inc,
+        expenses: exp
+      };
+    });
+
+    const dailyBreakdown = Object.values(dailyMap).sort((a, b) => a.date.localeCompare(b.date));
+
+    // Consultar gastos directos y nómina mensual
+    let directExpensesTotal = 0;
+    let payrollExpensesTotal = 0;
+    try {
+      const expensesList = await prisma.expense.findMany({
+        where: { date: { gte: startDate, lte: endDate } },
+        select: { amount: true, category: true }
+      });
+      expensesList.forEach(e => {
+        const amt = parseFloat(e.amount || 0);
+        directExpensesTotal += amt;
+        if (e.category === 'Nómina') payrollExpensesTotal += amt;
+      });
+    } catch {}
+
+    return {
+      period: `${year}-${String(month).padStart(2, '0')}`,
+      year,
+      month,
+      sessionsCount: formattedSessions.length,
+      metrics: {
+        totalSales,
+        totalIncomes,
+        totalExpenses,
+        payrollExpenses: payrollExpensesTotal,
+        directExpenses: directExpensesTotal,
+        netCashFlow: totalSales + totalIncomes - totalExpenses,
+        auditDifferences: totalDifferences,
+        totalMissing,
+        totalSurplus,
+        netBalance: totalSurplus - totalMissing,
+        salesByMethod
+      },
+      dailyBreakdown,
+      sessions: formattedSessions
+    };
+  }
+}
+
+module.exports = new CashService();

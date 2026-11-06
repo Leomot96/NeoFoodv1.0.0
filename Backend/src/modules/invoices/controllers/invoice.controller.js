@@ -1,0 +1,43 @@
+const invoiceService = require('../services/invoice.service');
+
+exports.getInvoices = async (req, res, next) => {
+  try {
+    const invoices = await invoiceService.getInvoices(req.query);
+    res.status(200).json({ success: true, data: invoices });
+  } catch (error) {
+    next(error);
+  }
+};
+
+exports.updatePaymentMethod = async (req, res, next) => {
+  try {
+    const { paymentMethodId, date } = req.body;
+    const userId = req.user.id;
+    const sale = await invoiceService.updatePaymentMethod(req.params.id, paymentMethodId, date, userId);
+    res.status(200).json({ success: true, data: sale });
+  } catch (error) {
+    next(error);
+  }
+};
+
+exports.addAbono = async (req, res, next) => {
+  try {
+    const { amount, paymentMethodId, date } = req.body;
+    const userId = req.user.id;
+    const sale = await invoiceService.addAbono(req.params.id, amount, paymentMethodId, userId, date);
+    res.status(200).json({ success: true, data: sale });
+  } catch (error) {
+    next(error);
+  }
+};
+
+exports.cancelInvoice = async (req, res, next) => {
+  try {
+    const { reason } = req.body || {};
+    const userId = req.user.id;
+    const result = await invoiceService.cancelInvoice(req.params.id, userId, reason);
+    res.status(200).json({ success: true, ...result });
+  } catch (error) {
+    next(error);
+  }
+};

@@ -1,0 +1,113 @@
+.barContainer {
+  position: fixed;
+  bottom: 1rem;
+  bottom: max(1rem, env(safe-area-inset-bottom, 1rem));
+  left: 0;
+  right: 0;
+  padding: 0 1rem;
+  z-index: 50;
+  display: flex;
+  justify-content: center;
+  pointer-events: none;
+  animation: slideUpBar 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes slideUpBar {
+  from {
+    transform: translateY(120%);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.floatingBtn {
+  pointer-events: auto;
+  width: 100%;
+  max-width: 30rem;
+  height: 3.5rem;
+  background: var(--brand-gradient, linear-gradient(135deg, #4f46e5 0%, #3b82f6 50%, #10b981 100%));
+  color: #ffffff;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 9999px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 1.25rem;
+  box-shadow: 0 8px 25px rgba(79, 70, 229, 0.45);
+  cursor: pointer;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.floatingBtn:active {
+  transform: scale(0.98);
+  box-shadow: 0 4px 15px rgba(79, 70, 229, 0.3);
+}
+
+.leftGroup {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.bagWrapper {
+  position: relative;
+  width: 2.2rem;
+  height: 2.2rem;
+  border-radius: 9999px;
+  background-color: rgba(0, 0, 0, 0.25);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.bagIcon {
+  color: #ffffff;
+}
+
+.itemBadge {
+  position: absolute;
+  top: -0.25rem;
+  right: -0.25rem;
+  background-color: #ffffff;
+  color: #4f46e5;
+  font-size: 0.72rem;
+  font-weight: 900;
+  width: 1.15rem;
+  height: 1.15rem;
+  border-radius: 9999px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.viewOrderText {
+  font-size: 0.95rem;
+  font-weight: 800;
+  letter-spacing: -0.01em;
+}
+
+.rightGroup {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.totalAmount {
+  font-size: 1.05rem;
+  font-weight: 900;
+  letter-spacing: -0.02em;
+}
+
+.chevronWrapper {
+  width: 1.75rem;
+  height: 1.75rem;
+  border-radius: 9999px;
+  background-color: rgba(255, 255, 255, 0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

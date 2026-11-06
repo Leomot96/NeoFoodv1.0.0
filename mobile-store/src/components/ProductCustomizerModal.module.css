@@ -1,0 +1,426 @@
+.backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  background-color: rgba(0, 0, 0, 0.75);
+  backdrop-filter: blur(6px);
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  animation: fadeIn 0.2s ease-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.bottomSheet {
+  width: 100%;
+  max-width: 32rem;
+  height: 88vh;
+  max-height: 88vh;
+  background-color: #0b0f19;
+  border-top-left-radius: 1.5rem;
+  border-top-right-radius: 1.5rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 -10px 40px rgba(0, 0, 0, 0.6);
+  animation: slideUp 0.28s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes slideUp {
+  from { transform: translateY(100%); }
+  to { transform: translateY(0); }
+}
+
+/* Botón flotante X */
+.closeBtn {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  z-index: 20;
+  width: 2.25rem;
+  height: 2.25rem;
+  border-radius: 9999px;
+  background-color: rgba(15, 23, 42, 0.85);
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  color: #f8fafc;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+  transition: transform 0.15s ease;
+}
+
+.closeBtn:active {
+  transform: scale(0.92);
+}
+
+/* Cuerpo con Scroll */
+.scrollBody {
+  flex: 1;
+  overflow-y: auto;
+  scrollbar-width: none;
+  -webkit-overflow-scrolling: touch;
+  padding-bottom: 1rem;
+}
+
+.scrollBody::-webkit-scrollbar {
+  display: none;
+}
+
+/* Cabecera con Imagen */
+.imageHeader {
+  width: 100%;
+  height: 14rem;
+  position: relative;
+  background-color: #161f30;
+}
+
+.headerImg {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.headerImgPlaceholder {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 4rem;
+  background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+}
+
+.infoContent {
+  padding: 1.25rem 1.25rem 0.5rem;
+}
+
+.titleRow {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 0.75rem;
+  margin-bottom: 0.5rem;
+}
+
+.productTitle {
+  margin: 0;
+  font-size: 1.35rem;
+  font-weight: 800;
+  color: #f8fafc;
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+}
+
+.basePriceBadge {
+  font-size: 1.15rem;
+  font-weight: 800;
+  color: #4f46e5;
+  white-space: nowrap;
+  letter-spacing: -0.01em;
+}
+
+.productDescription {
+  margin: 0 0 1.25rem;
+  font-size: 0.85rem;
+  color: #94a3b8;
+  line-height: 1.45;
+}
+
+/* Error Alert */
+.errorAlert {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background-color: rgba(239, 68, 68, 0.15);
+  border: 1px solid rgba(239, 68, 68, 0.35);
+  color: #fca5a5;
+  padding: 0.75rem 1rem;
+  border-radius: 0.75rem;
+  font-size: 0.82rem;
+  font-weight: 600;
+  margin-bottom: 1.25rem;
+}
+
+/* Secciones de Modificadores & Adiciones */
+.modifiersSection {
+  margin-bottom: 1.25rem;
+}
+
+.groupCard {
+  background-color: #131c2e;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 1rem;
+  padding: 1rem;
+  margin-bottom: 1rem;
+}
+
+.groupHeader {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 0.5rem;
+  margin-bottom: 0.85rem;
+  padding-bottom: 0.65rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.groupTitle {
+  margin: 0 0 0.15rem;
+  font-size: 0.95rem;
+  font-weight: 800;
+  color: #f8fafc;
+}
+
+.groupSubtitle {
+  font-size: 0.75rem;
+  color: #64748b;
+}
+
+.tagRequirement {
+  font-size: 0.68rem;
+  font-weight: 700;
+  padding: 0.2rem 0.5rem;
+  border-radius: 9999px;
+  white-space: nowrap;
+}
+
+.tagRequired {
+  background-color: rgba(79, 70, 229, 0.15);
+  color: #4f46e5;
+  border: 1px solid rgba(79, 70, 229, 0.3);
+}
+
+.tagOptional {
+  background-color: rgba(100, 116, 139, 0.15);
+  color: #94a3b8;
+  border: 1px solid rgba(100, 116, 139, 0.25);
+}
+
+/* Filas de Opciones */
+.optionsList {
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+}
+
+.optionRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.7rem 0.85rem;
+  border-radius: 0.65rem;
+  background-color: rgba(255, 255, 255, 0.02);
+  border: 1px solid transparent;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.optionRow:active {
+  background-color: rgba(255, 255, 255, 0.05);
+}
+
+.optionRowSelected {
+  background-color: rgba(79, 70, 229, 0.12);
+  border-color: rgba(79, 70, 229, 0.45);
+}
+
+.optionInfo {
+  display: flex;
+  flex-direction: column;
+}
+
+.optionName {
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: #e2e8f0;
+}
+
+.optionExtraPrice {
+  font-size: 0.76rem;
+  font-weight: 700;
+  color: #f59e0b;
+  margin-top: 0.1rem;
+}
+
+/* Radio Circles (Modificadores) */
+.radioCircle {
+  width: 1.25rem;
+  height: 1.25rem;
+  border-radius: 9999px;
+  border: 2px solid #475569;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.15s ease;
+  flex-shrink: 0;
+}
+
+.radioSelected {
+  border-color: #4f46e5;
+  background-color: rgba(79, 70, 229, 0.15);
+}
+
+.radioInnerDot {
+  width: 0.55rem;
+  height: 0.55rem;
+  border-radius: 9999px;
+  background-color: #4f46e5;
+}
+
+/* Checkboxes (Adiciones) */
+.checkboxBox {
+  width: 1.25rem;
+  height: 1.25rem;
+  border-radius: 0.35rem;
+  border: 2px solid #475569;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.15s ease;
+  flex-shrink: 0;
+}
+
+.checkboxChecked {
+  border-color: #4f46e5;
+  background-color: #4f46e5;
+}
+
+/* Instrucciones Especiales */
+.instructionsBox {
+  margin-top: 0.5rem;
+  margin-bottom: 1rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.instructionsLabel {
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: #cbd5e1;
+  margin-bottom: 0.4rem;
+}
+
+.instructionsTextarea {
+  width: 100%;
+  box-sizing: border-box;
+  background-color: #131c2e;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 0.75rem;
+  padding: 0.75rem;
+  color: #f8fafc;
+  font-size: 0.85rem;
+  outline: none;
+  resize: none;
+  font-family: inherit;
+}
+
+.instructionsTextarea:focus {
+  border-color: #4f46e5;
+}
+
+.instructionsTextarea::placeholder {
+  color: #64748b;
+}
+
+.charCount {
+  align-self: flex-end;
+  font-size: 0.68rem;
+  color: #64748b;
+  margin-top: 0.25rem;
+}
+
+/* Barra Fija Inferior */
+.footerBar {
+  background-color: #0e1524;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  padding: 0.85rem 1.25rem;
+  padding-bottom: max(0.85rem, env(safe-area-inset-bottom));
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.4);
+}
+
+.quantityPicker {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background-color: #182236;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 9999px;
+  padding: 0.25rem 0.45rem;
+}
+
+.qtyBtn {
+  width: 2rem;
+  height: 2rem;
+  border-radius: 9999px;
+  background-color: transparent;
+  border: none;
+  color: #f8fafc;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background-color 0.15s ease;
+}
+
+.qtyBtn:active {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.qtyBtnDisabled {
+  color: #475569;
+  cursor: not-allowed;
+}
+
+.qtyDisplay {
+  min-width: 1.5rem;
+  text-align: center;
+  font-size: 0.95rem;
+  font-weight: 800;
+  color: #f8fafc;
+}
+
+.addCartBtn {
+  flex: 1;
+  height: 2.85rem;
+  border-radius: 9999px;
+  background: var(--brand-gradient, linear-gradient(135deg, #4f46e5 0%, #3b82f6 50%, #10b981 100%));
+  color: #ffffff;
+  border: none;
+  font-size: 0.95rem;
+  font-weight: 800;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.45rem;
+  cursor: pointer;
+  box-shadow: 0 4px 15px rgba(79, 70, 229, 0.4);
+  transition: all 0.15s ease;
+}
+
+.addCartBtn:active {
+  transform: scale(0.98);
+}
+
+.addCartBtnInvalid {
+  opacity: 0.6;
+}
+
+.btnDot {
+  opacity: 0.6;
+}
+
+.btnPrice {
+  letter-spacing: -0.01em;
+}

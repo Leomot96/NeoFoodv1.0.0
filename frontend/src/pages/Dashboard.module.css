@@ -1,0 +1,619 @@
+/* ========================================================
+   CSS MODULE: PÁGINA DE DASHBOARD
+   ======================================================== */
+
+.dashboardContainer,
+.dashboard-container {
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+  width: 100%;
+}
+
+.dashboardHeader,
+.dashboard-header {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 0.5rem;
+}
+
+@media (min-width: 640px) {
+  .dashboardHeader,
+  .dashboard-header {
+    flex-direction: row;
+    align-items: center;
+  }
+}
+
+.dashboardTitleRow {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.versionBadge {
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  padding: 0.15rem 0.55rem;
+  border-radius: 9999px;
+  background: var(--brand-subtle-bg, rgba(79, 70, 229, 0.15));
+  color: var(--brand-primary, #4f46e5);
+  border: 1px solid var(--brand-border-subtle, rgba(79, 70, 229, 0.3));
+  display: inline-flex;
+  align-items: center;
+}
+
+.dashboardTitle,
+.dashboard-title {
+  font-size: 1.35rem;
+  font-weight: 800;
+  color: var(--text-main);
+  letter-spacing: -0.025em;
+  line-height: 1.15;
+}
+
+.dashboardSubtitle,
+.dashboard-subtitle {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  margin-top: 0.1rem;
+}
+
+.dashboardActions,
+.dashboard-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.cashStatusBadge,
+.cash-status-badge {
+  padding: 0.35rem 0.75rem;
+  border-radius: 0.65rem;
+  font-weight: 700;
+  font-size: 0.725rem;
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  border: 1px solid transparent;
+}
+
+.cashStatusBadge.open,
+.cash-status-badge.open {
+  background-color: var(--success-bg);
+  color: var(--success-text);
+  border-color: rgba(16, 185, 129, 0.3);
+}
+
+.cashStatusBadge.closed,
+.cash-status-badge.closed {
+  background-color: var(--danger-bg);
+  color: var(--danger-text);
+  border-color: rgba(239, 68, 68, 0.3);
+}
+
+.dashboardRefreshBtn,
+.dashboard-refresh-btn {
+  padding: 0.5rem;
+  background-color: var(--bg-surface);
+  border: 1px solid var(--border-color);
+  color: var(--text-secondary);
+  border-radius: 0.65rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: var(--card-shadow);
+  transition: all 0.15s ease;
+}
+
+.dashboardRefreshBtn:hover,
+.dashboard-refresh-btn:hover {
+  background-color: var(--bg-subtle);
+  color: var(--text-main);
+}
+
+.dashboardErrorBanner,
+.dashboard-error-banner {
+  padding: 0.75rem 1rem;
+  background-color: var(--warning-bg);
+  border: 1px solid rgba(245, 158, 11, 0.3);
+  color: var(--warning-text);
+  font-size: 0.8rem;
+  border-radius: 0.75rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.dashboardKpiGrid,
+.dashboard-kpi-grid {
+  display: grid;
+  grid-template-columns: repeat(1, 1fr);
+  gap: 0.75rem;
+}
+
+@media (min-width: 640px) {
+  .dashboardKpiGrid,
+  .dashboard-kpi-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1024px) {
+  .dashboardKpiGrid,
+  .dashboard-kpi-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+/* ========================================================
+   BARRA DE BOTONES PRINCIPALES (ACCESOS RÁPIDOS)
+   ======================================================== */
+.quickActionsBar {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.65rem;
+  width: 100%;
+}
+
+@media (min-width: 640px) {
+  .quickActionsBar {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+@media (min-width: 1024px) {
+  .quickActionsBar {
+    grid-template-columns: repeat(7, 1fr);
+  }
+}
+
+.quickActionBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.55rem;
+  padding: 0.65rem 0.75rem;
+  background-color: var(--bg-card, #0f172a);
+  border: 1px solid var(--border-subtle, #1e293b);
+  border-radius: 0.75rem;
+  font-size: 0.825rem;
+  font-weight: 700;
+  color: var(--text-main, #f8fafc);
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  user-select: none;
+}
+
+.quickActionIconWrap {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 0.5rem;
+  flex-shrink: 0;
+  transition: all 0.2s ease;
+}
+
+/* --- Colores y temas individuales --- */
+
+/* 1. Venta / POS (Indigo / Royal) */
+.btnPos {
+  background: var(--bg-card, #0f172a);
+  border-color: var(--border-subtle, #1e293b);
+  color: var(--text-main, #f8fafc);
+}
+.btnPos .quickActionIconWrap {
+  background: var(--brand-subtle-bg, rgba(79, 70, 229, 0.15));
+  color: var(--brand-primary, #4f46e5);
+}
+.btnPos:hover {
+  background: var(--brand-gradient, linear-gradient(135deg, #4f46e5 0%, #3b82f6 50%, #10b981 100%));
+  border-color: var(--brand-primary, #4f46e5);
+  color: #ffffff;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 14px var(--brand-glow, rgba(79, 70, 229, 0.35));
+}
+.btnPos:hover .quickActionIconWrap {
+  background: rgba(255, 255, 255, 0.2);
+  color: #ffffff;
+}
+
+/* 2. Mesas (Esmeralda / Cyan) */
+.btnTables {
+  background: var(--bg-card, #0f172a);
+  border-color: var(--border-subtle, #1e293b);
+  color: var(--text-main, #f8fafc);
+}
+.btnTables .quickActionIconWrap {
+  background: rgba(16, 185, 129, 0.15);
+  color: #10b981;
+}
+.btnTables:hover {
+  background: linear-gradient(135deg, #059669 0%, #10b981 100%);
+  border-color: #10b981;
+  color: #ffffff;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 14px rgba(16, 185, 129, 0.35);
+}
+.btnTables:hover .quickActionIconWrap {
+  background: rgba(255, 255, 255, 0.2);
+  color: #ffffff;
+}
+
+/* 3. Cocina (Crimson / Rose) */
+.btnKitchen {
+  background: var(--bg-card, #0f172a);
+  border-color: var(--border-subtle, #1e293b);
+  color: var(--text-main, #f8fafc);
+}
+.btnKitchen .quickActionIconWrap {
+  background: rgba(225, 29, 72, 0.15);
+  color: #fb7185;
+}
+.btnKitchen:hover {
+  background: linear-gradient(135deg, #e11d48 0%, #be123c 100%);
+  border-color: #be123c;
+  color: #ffffff;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 14px rgba(225, 29, 72, 0.35);
+}
+.btnKitchen:hover .quickActionIconWrap {
+  background: rgba(255, 255, 255, 0.2);
+  color: #ffffff;
+}
+
+/* 4. Inventario (Teal / Cyan) */
+.btnInventory {
+  background: var(--bg-card, #0f172a);
+  border-color: var(--border-subtle, #1e293b);
+  color: var(--text-main, #f8fafc);
+}
+.btnInventory .quickActionIconWrap {
+  background: rgba(13, 148, 136, 0.15);
+  color: #2dd4bf;
+}
+.btnInventory:hover {
+  background: linear-gradient(135deg, #0d9488 0%, #0f766e 100%);
+  border-color: #0f766e;
+  color: #ffffff;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 14px rgba(13, 148, 136, 0.35);
+}
+.btnInventory:hover .quickActionIconWrap {
+  background: rgba(255, 255, 255, 0.2);
+  color: #ffffff;
+}
+
+/* 5. Compras (Purple / Violet) */
+.btnPurchases {
+  background: var(--bg-card, #0f172a);
+  border-color: var(--border-subtle, #1e293b);
+  color: var(--text-main, #f8fafc);
+}
+.btnPurchases .quickActionIconWrap {
+  background: rgba(124, 58, 237, 0.15);
+  color: #c084fc;
+}
+.btnPurchases:hover {
+  background: linear-gradient(135deg, #7c3aed 0%, #6d28d9 100%);
+  border-color: #6d28d9;
+  color: #ffffff;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 14px rgba(124, 58, 237, 0.35);
+}
+.btnPurchases:hover .quickActionIconWrap {
+  background: rgba(255, 255, 255, 0.2);
+  color: #ffffff;
+}
+
+/* 6. Producción (Gold / Amber) */
+.btnProduction {
+  background: var(--bg-card, #0f172a);
+  border-color: var(--border-subtle, #1e293b);
+  color: var(--text-main, #f8fafc);
+}
+.btnProduction .quickActionIconWrap {
+  background: rgba(202, 138, 4, 0.15);
+  color: #facc15;
+}
+.btnProduction:hover {
+  background: linear-gradient(135deg, #ca8a04 0%, #a16207 100%);
+  border-color: #a16207;
+  color: #ffffff;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 14px rgba(202, 138, 4, 0.35);
+}
+.btnProduction:hover .quickActionIconWrap {
+  background: rgba(255, 255, 255, 0.2);
+  color: #ffffff;
+}
+
+/* 7. Caja (Emerald / Green) */
+.btnCash {
+  background: var(--bg-card, #0f172a);
+  border-color: var(--border-subtle, #1e293b);
+  color: var(--text-main, #f8fafc);
+}
+.btnCash .quickActionIconWrap {
+  background: rgba(16, 185, 129, 0.15);
+  color: #34d399;
+}
+.btnCash:hover {
+  background: linear-gradient(135deg, #059669 0%, #047857 100%);
+  border-color: #047857;
+  color: #ffffff;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 14px rgba(5, 150, 105, 0.35);
+}
+.btnCash:hover .quickActionIconWrap {
+  background: rgba(255, 255, 255, 0.2);
+  color: #ffffff;
+}
+
+/* 8. Tienda Virtual (Sky / Blue) */
+.btnStore {
+  background: var(--bg-card, #0f172a);
+  border-color: var(--border-subtle, #1e293b);
+  color: var(--text-main, #f8fafc);
+}
+.btnStore .quickActionIconWrap {
+  background: rgba(2, 132, 199, 0.15);
+  color: #38bdf8;
+}
+.btnStore:hover {
+  background: linear-gradient(135deg, #0284c7 0%, #0369a1 100%);
+  border-color: #0369a1;
+  color: #ffffff;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 14px rgba(2, 132, 199, 0.35);
+}
+.btnStore:hover .quickActionIconWrap {
+  background: rgba(255, 255, 255, 0.2);
+  color: #ffffff;
+}
+
+.dashboardMainGrid,
+.dashboard-main-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0.85rem;
+}
+
+@media (min-width: 1024px) {
+  .dashboardMainGrid,
+  .dashboard-main-grid {
+    grid-template-columns: 2fr 1fr;
+  }
+}
+
+.dashboardSidePanels,
+.dashboard-side-panels {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.dashboardPanelCard,
+.dashboard-panel-card {
+  background-color: var(--bg-card, #0f172a);
+  border-radius: 0.85rem;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.2), 0 2px 4px -2px rgba(0, 0, 0, 0.2);
+  border: 1px solid var(--border-subtle, #1e293b);
+  padding: 0.85rem 1rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.dashboardPanelHeader,
+.dashboard-panel-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 0.5rem;
+}
+
+.dashboardPanelTitle,
+.dashboard-panel-title {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--text-main);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.dashboardPanelLink,
+.dashboard-panel-link {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--brand-primary, #4f46e5);
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  text-decoration: none;
+  cursor: pointer;
+  background: none;
+  border: none;
+}
+
+.dashboardPanelLink:hover,
+.dashboard-panel-link:hover {
+  text-decoration: underline;
+  color: var(--brand-primary-hover, #c2410c);
+}
+
+.lowStockList,
+.low-stock-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.625rem;
+}
+
+.lowStockItem,
+.low-stock-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.625rem;
+  background-color: var(--danger-bg);
+  border: 1px solid rgba(239, 68, 68, 0.2);
+  border-radius: 0.75rem;
+}
+
+.lowStockBadge,
+.low-stock-badge {
+  font-size: 0.75rem;
+  font-weight: 900;
+  color: var(--danger);
+  background-color: rgba(239, 68, 68, 0.15);
+  padding: 0.15rem 0.5rem;
+  border-radius: 0.5rem;
+  flex-shrink: 0;
+}
+
+.topProductsList,
+.top-products-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.topProductItem,
+.top-product-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.5rem;
+  border-radius: 0.75rem;
+  transition: background-color 0.15s ease;
+}
+
+.topProductItem:hover,
+.top-product-item:hover {
+  background-color: rgba(30, 41, 59, 0.7);
+}
+
+.topProductRank,
+.top-product-rank {
+  width: 1.75rem;
+  height: 1.75rem;
+  border-radius: 0.5rem;
+  background-color: var(--primary-light);
+  color: var(--primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 0.75rem;
+  flex-shrink: 0;
+}
+
+/* Compatibilidad Global */
+.dashboard-container { display: flex; flex-direction: column; gap: 2rem; width: 100%; }
+.dashboard-header { display: flex; flex-direction: column; justify-content: space-between; gap: 1rem; }
+@media (min-width: 640px) { .dashboard-header { flex-direction: row; align-items: center; } }
+.dashboard-title { font-size: 1.75rem; font-weight: 800; color: var(--text-main); letter-spacing: -0.025em; line-height: 1.2; }
+.dashboard-subtitle { font-size: 0.875rem; color: var(--text-muted); margin-top: 0.25rem; }
+.dashboard-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 0.75rem; }
+.cash-status-badge { padding: 0.4rem 0.875rem; border-radius: 0.75rem; font-weight: 700; font-size: 0.75rem; display: flex; align-items: center; gap: 0.5rem; cursor: pointer; transition: all 0.2s ease; border: 1px solid transparent; }
+.cash-status-badge.open { background-color: var(--success-bg); color: var(--success-text); border-color: rgba(16, 185, 129, 0.3); }
+.cash-status-badge.closed { background-color: var(--danger-bg); color: var(--danger-text); border-color: rgba(239, 68, 68, 0.3); }
+.dashboard-refresh-btn { padding: 0.625rem; background-color: var(--bg-surface); border: 1px solid var(--border-color); color: var(--text-secondary); border-radius: 0.75rem; display: flex; align-items: center; justify-content: center; cursor: pointer; box-shadow: var(--card-shadow); transition: all 0.15s ease; }
+.dashboard-refresh-btn:hover { background-color: var(--bg-subtle); color: var(--text-main); }
+.dashboard-error-banner { padding: 1rem; background-color: var(--warning-bg); border: 1px solid rgba(245, 158, 11, 0.3); color: var(--warning-text); font-size: 0.875rem; border-radius: 1rem; display: flex; align-items: center; justify-content: space-between; }
+.dashboard-kpi-grid { display: grid; grid-template-columns: repeat(1, 1fr); gap: 1.25rem; }
+@media (min-width: 640px) { .dashboard-kpi-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (min-width: 1024px) { .dashboard-kpi-grid { grid-template-columns: repeat(4, 1fr); } }
+.dashboard-main-grid { display: grid; grid-template-columns: 1fr; gap: 2rem; }
+@media (min-width: 1024px) { .dashboard-main-grid { grid-template-columns: 2fr 1fr; } }
+.dashboard-side-panels { display: flex; flex-direction: column; gap: 1.5rem; }
+.dashboard-panel-card { background-color: var(--bg-card, #0f172a); border-radius: 1rem; box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4); border: 1px solid var(--border-subtle, #1e293b); padding: 1.25rem; display: flex; flex-direction: column; color: var(--text-main, #f8fafc); }
+.dashboard-panel-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 1rem; }
+.dashboard-panel-title { font-size: 1rem; font-weight: 700; color: var(--text-main, #f8fafc); display: flex; align-items: center; gap: 0.5rem; }
+.dashboard-panel-link { font-size: 0.75rem; font-weight: 600; color: var(--primary); display: flex; align-items: center; gap: 0.25rem; text-decoration: none; cursor: pointer; background: none; border: none; }
+.dashboard-panel-link:hover { text-decoration: underline; }
+.low-stock-list { list-style: none; display: flex; flex-direction: column; gap: 0.625rem; }
+.low-stock-item { display: flex; justify-content: space-between; align-items: center; padding: 0.625rem; background-color: var(--danger-bg); border: 1px solid rgba(239, 68, 68, 0.2); border-radius: 0.75rem; }
+.low-stock-badge { font-size: 0.75rem; font-weight: 900; color: var(--danger); background-color: rgba(239, 68, 68, 0.15); padding: 0.15rem 0.5rem; border-radius: 0.5rem; flex-shrink: 0; }
+.top-products-list { list-style: none; display: flex; flex-direction: column; gap: 0.75rem; }
+.top-product-item { display: flex; justify-content: space-between; align-items: center; padding: 0.5rem; border-radius: 0.75rem; transition: background-color 0.15s ease; }
+.top-product-item:hover { background-color: var(--bg-subtle); }
+.top-product-rank { width: 1.75rem; height: 1.75rem; border-radius: 0.5rem; background-color: var(--primary-light); color: var(--primary); display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 0.75rem; flex-shrink: 0; }
+
+/* Mini Paginación para Tarjetas del Dashboard */
+.miniPagination {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 0.75rem;
+  padding-top: 0.625rem;
+  border-top: 1px solid var(--border-color, #e2e8f0);
+  font-size: 0.75rem;
+  color: var(--text-muted, #64748b);
+}
+
+.miniPaginationControls {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.miniPaginationBtn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.5rem;
+  height: 1.5rem;
+  border-radius: 0.375rem;
+  border: 1px solid var(--border-card, #334155);
+  background-color: var(--bg-card-secondary, #1e293b);
+  color: var(--text-muted, #94a3b8);
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.miniPaginationBtn:hover:not(:disabled) {
+  background-color: #334155;
+  color: var(--brand-primary, #4f46e5);
+  border-color: var(--brand-primary, #4f46e5);
+}
+
+.miniPaginationBtn:disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+}
+
+/* ========================================================
+   OPTIMIZACIONES MÓVILES (DASHBOARD ESTILO APP)
+   ======================================================== */
+@media (max-width: 768px) {
+  .dashboardContainer,
+  .dashboard-container {
+    gap: 0.85rem !important;
+  }
+
+  .dashboardTitle,
+  .dashboard-title {
+    font-size: 1.2rem !important;
+  }
+
+  .dashboardActions,
+  .dashboard-actions {
+    width: 100% !important;
+    gap: 0.5rem !important;
+  }
+}

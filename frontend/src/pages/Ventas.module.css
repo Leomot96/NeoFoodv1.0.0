@@ -1,0 +1,907 @@
+/* ========================================================
+   ESTILOS DE PÁGINA: PUNTO DE VENTA (POS) Y SALÓN DE MESAS
+   Neofood - CSS Module Individual
+   ======================================================== */
+
+.posPage,
+.pos-page {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  height: 100%;
+  max-height: 100%;
+  min-height: 0;
+  flex: 1;
+  padding: 1.25rem;
+  background-color: var(--bg-card, #0f172a);
+  border: 1px solid var(--border-subtle, #1e293b);
+  border-radius: var(--radius-xl, 1rem);
+  overflow: hidden;
+}
+
+/* ========================================================
+   VISTA 1: SALÓN DE MESAS
+   ======================================================== */
+
+.posTablesHeader,
+.pos-tables-header {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  justify-content: space-between;
+}
+
+@media (min-width: 640px) {
+
+  .posTablesHeader,
+  .pos-tables-header {
+    flex-direction: row;
+    align-items: center;
+  }
+}
+
+.posTablesTitle,
+.pos-tables-title {
+  font-size: 1.5rem;
+  font-weight: 900;
+  color: var(--text-main, #0f172a);
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  margin: 0;
+}
+
+.posTablesSubtitle,
+.pos-tables-subtitle {
+  font-size: 0.875rem;
+  color: var(--text-muted, #64748b);
+  margin-top: 0.25rem;
+  margin-bottom: 0;
+}
+
+.posTablesStats,
+.pos-tables-stats {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.posStatBadge,
+.pos-stat-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.35rem 0.75rem;
+  border-radius: var(--radius-full, 9999px);
+  font-size: 0.75rem;
+  font-weight: 700;
+}
+
+.posStatBadge.free,
+.posStatBadgeFree,
+.pos-stat-badge.free {
+  background-color: #dcfce7;
+  color: #15803d;
+  border: 1px solid #bbf7d0;
+}
+
+.posStatBadge.occupied,
+.posStatBadgeOccupied,
+.pos-stat-badge.occupied {
+  background-color: #fef3c7;
+  color: #b45309;
+  border: 1px solid #fde68a;
+}
+
+.posTablesGrid,
+.pos-tables-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 1rem;
+  overflow-y: auto;
+  flex: 1;
+  min-height: 0;
+  padding-top: 0.5rem;
+  padding-right: 0.35rem;
+  padding-bottom: 0.5rem;
+  align-content: start;
+}
+
+/* Tarjeta Venta Rápida */
+.posQuickSaleCard,
+.pos-quick-sale-card {
+  margin-top: 0.35rem;
+  padding: 0.85rem 1rem;
+  border-radius: var(--radius-xl, 1rem);
+  border: 2px dashed var(--brand-primary, #f97316);
+  background-color: var(--brand-hover-bg, rgba(249, 115, 22, 0.05));
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  text-align: left;
+  min-height: 120px;
+  cursor: pointer;
+  transition: all var(--transition-fast, 0.15s ease);
+}
+
+.posQuickSaleCard:hover,
+.pos-quick-sale-card:hover {
+  background-color: var(--brand-subtle-bg, rgba(249, 115, 22, 0.1));
+  border-color: var(--brand-primary, #4f46e5);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px var(--brand-glow, rgba(249, 115, 22, 0.18));
+}
+
+.posQuickSaleBadge,
+.pos-quick-sale-badge {
+  font-size: 0.75rem;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--brand-primary, #4f46e5);
+  background-color: var(--brand-subtle-bg, #ffedd5);
+  border: 1px solid var(--brand-border-subtle, transparent);
+  padding: 0.25rem 0.65rem;
+  border-radius: var(--radius-full, 9999px);
+}
+
+/* Tarjetas de Mesa */
+.posTableCard,
+.pos-table-card {
+  margin-top: 0.35rem;
+  padding: 0.85rem 1rem;
+  border-radius: var(--radius-xl, 1rem);
+  border: 1px solid var(--border-card, #334155);
+  background-color: var(--bg-card-secondary, #1e293b);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 120px;
+  cursor: pointer;
+  transition: all var(--transition-fast, 0.15s ease);
+  position: relative;
+  overflow: hidden;
+}
+
+.posTableCard:hover,
+.pos-table-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.4);
+}
+
+.posTableCard.available,
+.pos-table-card.available {
+  background-color: var(--bg-card-secondary, #1e293b);
+  border-color: var(--border-card, #334155);
+}
+
+.posTableCard.available:hover,
+.pos-table-card.available:hover {
+  border-color: var(--brand-primary, #4f46e5);
+  box-shadow: 0 4px 14px var(--brand-glow, rgba(79, 70, 229, 0.25));
+}
+
+.posTableCard.occupied,
+.pos-table-card.occupied {
+  background-color: rgba(245, 158, 11, 0.12);
+  border-color: rgba(245, 158, 11, 0.4);
+}
+
+.posTableCard.occupied:hover,
+.pos-table-card.occupied:hover {
+  border-color: #f59e0b;
+  box-shadow: 0 4px 14px rgba(245, 158, 11, 0.3);
+}
+
+.posTableStatusPill,
+.pos-table-status-pill {
+  font-size: 0.6875rem;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  padding: 0.2rem 0.6rem;
+  border-radius: var(--radius-full, 9999px);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.posTableStatusPill.available,
+.pos-table-status-pill.available {
+  background-color: #dcfce7;
+  color: #15803d;
+}
+
+.posTableStatusPill.occupied,
+.pos-table-status-pill.occupied {
+  background-color: #f59e0b;
+  color: #ffffff;
+}
+
+.posTableName,
+.pos-table-name {
+  font-size: 1.15rem;
+  font-weight: 900;
+  color: var(--text-main, #0f172a);
+  line-height: 1.2;
+  margin: 0;
+}
+
+.posTableIconBox,
+.pos-table-icon-box {
+  width: 42px;
+  height: 42px;
+  border-radius: 0.75rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.posTableIconBoxAvailable,
+.posTableIconBox.available,
+.pos-table-icon-box.available {
+  background-color: var(--brand-hover-bg, rgba(79, 70, 229, 0.12));
+  color: var(--brand-primary, #4f46e5);
+  border: 1.5px solid var(--brand-border-subtle, rgba(79, 70, 229, 0.25));
+}
+
+.posTableCard:hover .posTableIconBoxAvailable,
+.posTableCard:hover .posTableIconBox.available,
+.pos-table-card:hover .pos-table-icon-box.available {
+  background: var(--brand-gradient, linear-gradient(135deg, #4f46e5 0%, #3b82f6 50%, #10b981 100%));
+  color: #ffffff;
+  transform: scale(1.08);
+  box-shadow: 0 4px 10px var(--brand-glow, rgba(79, 70, 229, 0.3));
+}
+
+.posTableIconBoxOccupied,
+.posTableIconBox.occupied,
+.pos-table-icon-box.occupied {
+  background-color: #fef3c7;
+  color: #d97706;
+  border: 1.5px solid rgba(217, 119, 6, 0.25);
+}
+
+.posTableCard:hover .posTableIconBoxOccupied,
+.posTableCard:hover .posTableIconBox.occupied,
+.pos-table-card:hover .pos-table-icon-box.occupied {
+  background-color: #f59e0b;
+  color: #ffffff;
+  transform: scale(1.08);
+  box-shadow: 0 4px 10px rgba(245, 158, 11, 0.25);
+}
+
+/* ========================================================
+   VISTA 2: ATENCIÓN DE MESA & CARRITO
+   ======================================================== */
+
+.posActiveLayout,
+.pos-active-layout {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  max-height: 100%;
+  min-height: 0;
+  flex: 1;
+  gap: 1rem;
+  overflow: hidden;
+  margin: 0;
+  padding: 0;
+}
+
+@media (min-width: 1024px) {
+
+  .posActiveLayout,
+  .pos-active-layout {
+    flex-direction: row;
+  }
+}
+
+/* Catálogo de Productos (Panel Izquierdo) */
+.posCatalogPanel,
+.pos-catalog-panel {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  max-height: 100%;
+  min-height: 0;
+  background-color: var(--bg-card, #0f172a);
+  border: 1px solid var(--border-subtle, #1e293b);
+  border-radius: var(--radius-xl, 1rem);
+  overflow: hidden;
+}
+
+.posActiveTableBar,
+.pos-active-table-bar {
+  padding: 1rem 1.25rem;
+  color: #ffffff;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.posActiveTableBar.occupied,
+.pos-active-table-bar.occupied {
+  background: linear-gradient(135deg, #d97706, #b45309);
+}
+
+.posActiveTableBar.available,
+.pos-active-table-bar.available {
+  background: linear-gradient(135deg, var(--brand-primary, #4f46e5), var(--brand-primary-hover, #c2410c));
+}
+
+.posCategoriesContainer,
+.pos-categories-container {
+  padding: 0.75rem 1rem;
+  border-bottom: 1px solid var(--border-subtle, #1e293b);
+  background-color: var(--bg-card-secondary, #1e293b);
+}
+
+.posCategoriesBar,
+.pos-categories-bar {
+  display: flex;
+  gap: 0.5rem;
+  overflow-x: auto;
+  padding-bottom: 0.25rem;
+}
+
+.posCategoryBtn,
+.pos-category-btn {
+  white-space: nowrap;
+  padding: 0.45rem 1rem;
+  border-radius: var(--radius-full, 9999px);
+  font-size: 0.75rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all var(--transition-fast, 0.15s ease);
+  border: 1px solid transparent;
+}
+
+.posCategoryBtn.active,
+.pos-category-btn.active {
+  background: var(--brand-gradient, linear-gradient(135deg, #4f46e5 0%, #3b82f6 50%, #10b981 100%));
+  color: #ffffff;
+  box-shadow: 0 4px 12px var(--brand-glow, rgba(79, 70, 229, 0.25));
+}
+
+.posCategoryBtn:not(.active),
+.pos-category-btn:not(.active) {
+  background-color: var(--bg-card, #0f172a);
+  color: var(--text-muted, #94a3b8);
+  border-color: var(--border-card, #334155);
+}
+
+.posCategoryBtn:not(.active):hover,
+.pos-category-btn:not(.active):hover {
+  background-color: var(--brand-hover-bg, #334155);
+  border-color: var(--brand-border-subtle, var(--brand-primary, #4f46e5));
+  color: #ffffff;
+}
+
+.posProductsGrid,
+.pos-products-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+  gap: 1rem;
+  padding: 1rem;
+  overflow-y: auto;
+  flex: 1;
+}
+
+@media (min-width: 640px) {
+
+  .posProductsGrid,
+  .pos-products-grid {
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  }
+}
+
+.posProductCard,
+.pos-product-card {
+  background-color: var(--bg-card-secondary, #1e293b);
+  border: 1px solid var(--border-card, #334155);
+  border-radius: var(--radius-xl, 0.875rem);
+  padding: 0.65rem;
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  transition: all var(--transition-fast, 0.15s ease);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  user-select: none;
+}
+
+.posProductCard:hover,
+.pos-product-card:hover {
+  border-color: var(--brand-primary, #4f46e5);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 18px var(--brand-glow, rgba(79, 70, 229, 0.25));
+}
+
+.posProductMedia {
+  width: 100%;
+  height: 96px;
+  border-radius: var(--radius-md, 0.625rem);
+  overflow: hidden;
+  position: relative;
+  background-color: #020617;
+  margin-bottom: 0.6rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--border-card, #334155);
+}
+
+.posProductImg {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  display: block;
+}
+
+.posProductCard:hover .posProductImg {
+  transform: scale(1.06);
+}
+
+.posProductPlaceholder {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, var(--brand-hover-bg, rgba(79, 70, 229, 0.1)) 0%, rgba(30, 41, 59, 0.8) 100%);
+  color: var(--brand-primary, #4f46e5);
+  transition: transform var(--transition-fast, 0.15s ease);
+}
+
+.posProductCard:hover .posProductPlaceholder {
+  transform: scale(1.08);
+}
+
+.posProductBadgeCombo {
+  position: absolute;
+  top: 0.4rem;
+  right: 0.4rem;
+  background-color: #f59e0b;
+  color: #ffffff;
+  font-size: 0.625rem;
+  font-weight: 900;
+  padding: 0.15rem 0.45rem;
+  border-radius: var(--radius-full, 9999px);
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
+  backdrop-filter: blur(4px);
+  z-index: 2;
+}
+
+.posProductBadgeOptions {
+  position: absolute;
+  bottom: 0.35rem;
+  left: 0.35rem;
+  background-color: rgba(15, 23, 42, 0.7);
+  color: #ffffff;
+  font-size: 0.58rem;
+  font-weight: 700;
+  padding: 0.12rem 0.4rem;
+  border-radius: var(--radius-full, 9999px);
+  backdrop-filter: blur(4px);
+  z-index: 2;
+}
+
+.posProductIconWrap,
+.pos-product-icon-wrap {
+  width: 3rem;
+  height: 3rem;
+  border-radius: var(--radius-md, 0.5rem);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 0.75rem;
+  background-color: var(--bg-card-secondary, #1e293b);
+  border: 1px solid var(--border-card, #334155);
+  color: var(--brand-primary, #4f46e5);
+  transition: transform var(--transition-fast, 0.15s ease);
+}
+
+.posProductCard:hover .posProductIconWrap,
+.pos-product-card:hover .pos-product-icon-wrap {
+  transform: scale(1.1);
+}
+
+.posProductName,
+.pos-product-name {
+  font-weight: 700;
+  font-size: 0.85rem;
+  color: var(--text-main, #f8fafc);
+  line-height: 1.25;
+  margin-bottom: 0.35rem;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  min-height: 2.1rem;
+}
+
+.posProductPrice,
+.pos-product-price {
+  font-weight: 900;
+  color: var(--brand-primary, #4f46e5);
+  margin-top: auto;
+  font-size: 0.95rem;
+  line-height: 1;
+}
+
+/* Carrito de la Mesa (Panel Derecho) */
+.posCartPanel,
+.pos-cart-panel {
+  width: 100%;
+  height: 100%;
+  max-height: 100%;
+  min-height: 0;
+  background-color: var(--bg-card, #0f172a);
+  border: 1px solid var(--border-subtle, #1e293b);
+  border-radius: var(--radius-xl, 1rem);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+@media (min-width: 1024px) {
+
+  .posCartPanel,
+  .pos-cart-panel {
+    width: 24rem;
+  }
+}
+
+.posCartHeader,
+.pos-cart-header {
+  padding: 1rem 1.25rem;
+  color: #ffffff;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.posCartHeader.occupied,
+.pos-cart-header.occupied {
+  background-color: #d97706;
+}
+
+.posCartHeader.available,
+.pos-cart-header.available {
+  background: linear-gradient(135deg, var(--brand-primary, #4f46e5), var(--brand-primary-hover, #c2410c));
+}
+
+.posCartItemsContainer,
+.pos-cart-items-container {
+  flex: 1;
+  overflow-y: auto;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.posCartItem,
+.pos-cart-item {
+  padding: 0.75rem 1rem;
+  background-color: var(--bg-card-secondary, #1e293b);
+  border: 1px solid var(--border-subtle, #1e293b);
+  border-radius: var(--radius-lg, 0.75rem);
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.posCartFooter,
+.pos-cart-footer {
+  padding: 1rem 1.25rem;
+  background-color: var(--bg-card-secondary, #1e293b);
+  border-top: 1px solid var(--border-subtle, #1e293b);
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+/* ========================================================
+   OPTIMIZACIONES MÓVILES (PUNTO DE VENTA ESTILO APP)
+   ======================================================== */
+@media (max-width: 768px) {
+  .posPage,
+  .pos-page {
+    padding: 0.65rem !important;
+    gap: 0.75rem !important;
+    border-radius: 0.875rem !important;
+    height: auto !important;
+    max-height: none !important;
+    overflow: visible !important;
+  }
+
+  .posTablesHeader,
+  .pos-tables-header {
+    gap: 0.5rem !important;
+  }
+
+  .posTablesTitle,
+  .pos-tables-title {
+    font-size: 1.25rem !important;
+  }
+
+  /* Cuadrícula de mesas en 2 columnas compactas para móvil */
+  .posTablesGrid,
+  .pos-tables-grid {
+    grid-template-columns: repeat(auto-fill, minmax(135px, 1fr)) !important;
+    gap: 0.65rem !important;
+  }
+
+  .posTableCard,
+  .pos-table-card {
+    min-height: 105px !important;
+    padding: 0.65rem 0.75rem !important;
+    border-radius: 0.875rem !important;
+  }
+
+  .posTableName,
+  .pos-table-name {
+    font-size: 1rem !important;
+  }
+
+  .posTableIconBox,
+  .pos-table-icon-box {
+    width: 34px !important;
+    height: 34px !important;
+  }
+
+  /* Barra de categorías con deslizamiento horizontal suave */
+  .posCategoriesBar,
+  .pos-categories-bar {
+    overflow-x: auto !important;
+    flex-wrap: nowrap !important;
+    -webkit-overflow-scrolling: touch !important;
+    scrollbar-width: none !important;
+    padding-bottom: 0.2rem !important;
+    touch-action: pan-x !important;
+  }
+
+  .posCategoriesBar::-webkit-scrollbar,
+  .pos-categories-bar::-webkit-scrollbar {
+    display: none !important;
+  }
+
+  .posCategoryBtn,
+  .pos-category-btn {
+    flex-shrink: 0 !important;
+    padding: 0.4rem 0.85rem !important;
+    font-size: 0.725rem !important;
+  }
+
+  /* Catálogo de productos en móvil */
+  .posProductsGrid,
+  .pos-products-grid {
+    grid-template-columns: repeat(auto-fill, minmax(115px, 1fr)) !important;
+    gap: 0.65rem !important;
+    padding: 0.65rem !important;
+  }
+
+  .posProductCard,
+  .pos-product-card {
+    padding: 0.5rem !important;
+    border-radius: 0.75rem !important;
+  }
+
+  .posProductMedia {
+    height: 75px !important;
+    margin-bottom: 0.4rem !important;
+  }
+
+  /* Layout activo de orden en móvil: FLUJO EN 2 PASOS (Catálogo <-> Checkout/Pedido) */
+  .posActiveLayout,
+  .pos-active-layout {
+    flex-direction: column !important;
+    overflow-y: visible !important;
+    height: auto !important;
+    max-height: none !important;
+  }
+
+  .posCatalogPanel,
+  .pos-catalog-panel {
+    width: 100% !important;
+    height: auto !important;
+    max-height: none !important;
+    min-height: calc(100vh - 140px) !important;
+    overflow: visible !important;
+  }
+
+  .posCartPanel,
+  .pos-cart-panel {
+    width: 100% !important;
+    height: auto !important;
+    max-height: none !important;
+    margin-top: 0 !important;
+    border-radius: var(--radius-xl, 1rem) !important;
+  }
+
+  .posCartItemsContainer,
+  .pos-cart-items-container {
+    max-height: 48vh !important;
+    min-height: 160px !important;
+    overflow-y: auto !important;
+  }
+}
+
+/* ========================================================
+   REGLAS DEL FLUJO EN 2 PASOS EN DISPOSITIVOS MÓVILES (<1024px)
+   ======================================================== */
+.posMobileCartBar {
+  display: none;
+}
+
+.posMobileBackRow {
+  display: none;
+}
+
+.posMobileCartHeaderBtn {
+  display: none;
+}
+
+@media (max-width: 1023px) {
+  .hideOnMobile {
+    display: none !important;
+  }
+
+  /* Botón de acceso directo al carrito en la cabecera */
+  .posMobileCartHeaderBtn {
+    display: inline-flex !important;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    padding: 0.45rem 0.65rem;
+    background-color: rgba(255, 255, 255, 0.22);
+    border: 1px solid rgba(255, 255, 255, 0.35);
+    border-radius: var(--radius-lg, 0.75rem);
+    color: #ffffff;
+    cursor: pointer;
+    transition: background-color 0.15s ease;
+  }
+
+  .posMobileCartHeaderBtn:active {
+    background-color: rgba(255, 255, 255, 0.35);
+  }
+
+  .posMobileCartHeaderBadge {
+    position: absolute;
+    top: -5px;
+    right: -5px;
+    background-color: #ef4444;
+    color: #ffffff;
+    font-size: 0.65rem;
+    font-weight: 900;
+    min-width: 18px;
+    height: 18px;
+    border-radius: 9999px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 2px solid #ffffff;
+    padding: 0 0.2rem;
+  }
+
+  /* Barra Flotante Inferior de Paso 1 (Ver Pedido / Cobrar) */
+  .posMobileCartBar {
+    display: flex !important;
+    position: sticky;
+    bottom: 0.65rem;
+    margin: 0.75rem 0.75rem 0.75rem 0.75rem;
+    padding: 0.8rem 1rem;
+    background: linear-gradient(135deg, #0f172a, #1e293b);
+    color: #ffffff;
+    border-radius: 1rem;
+    align-items: center;
+    justify-content: space-between;
+    box-shadow: 0 10px 25px -4px rgba(15, 23, 42, 0.5), 0 4px 6px -2px rgba(15, 23, 42, 0.3);
+    z-index: 50;
+    border: 1.5px solid rgba(255, 255, 255, 0.12);
+    backdrop-filter: blur(8px);
+    animation: slideUpMobile 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .posMobileCartBarInfo {
+    display: flex;
+    flex-direction: column;
+    gap: 0.15rem;
+  }
+
+  .posMobileCartBadge {
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: #94a3b8;
+    display: flex;
+    align-items: center;
+    gap: 0.35rem;
+  }
+
+  .posMobileCartTotal {
+    font-size: 1.2rem;
+    font-weight: 900;
+    color: #38bdf8;
+    letter-spacing: -0.02em;
+    line-height: 1.1;
+  }
+
+  .posMobileCartBtn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.65rem 1.15rem;
+    background: var(--brand-gradient, linear-gradient(135deg, #4f46e5 0%, #3b82f6 50%, #10b981 100%));
+    color: #ffffff;
+    font-size: 0.875rem;
+    font-weight: 800;
+    border: none;
+    border-radius: 0.75rem;
+    cursor: pointer;
+    box-shadow: 0 4px 14px var(--brand-glow, rgba(79, 70, 229, 0.4));
+    transition: transform 0.15s ease;
+  }
+
+  .posMobileCartBtn:active {
+    transform: scale(0.96);
+  }
+
+  /* Barra de retorno al Menú en Paso 2 */
+  .posMobileBackRow {
+    display: flex !important;
+    padding: 0.65rem 0.85rem;
+    background-color: var(--bg-card-secondary, #1e293b);
+    border-bottom: 1px solid var(--border-subtle, #1e293b);
+    align-items: center;
+  }
+
+  .posMobileBackBtn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background-color: var(--brand-subtle-bg, rgba(79, 70, 229, 0.15));
+    color: var(--brand-primary, #4f46e5);
+    border: 1.5px solid var(--brand-border-subtle, rgba(79, 70, 229, 0.3));
+    padding: 0.55rem 0.95rem;
+    border-radius: 0.75rem;
+    font-size: 0.825rem;
+    font-weight: 800;
+    cursor: pointer;
+    width: 100%;
+    justify-content: center;
+    box-shadow: var(--shadow-sm);
+    transition: all 0.15s ease;
+  }
+
+  .posMobileBackBtn:active {
+    background-color: var(--brand-glow, rgba(79, 70, 229, 0.25));
+    transform: scale(0.98);
+  }
+}
+
+@keyframes slideUpMobile {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

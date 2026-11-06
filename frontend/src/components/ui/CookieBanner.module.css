@@ -1,0 +1,166 @@
+.bannerWrapper {
+  position: fixed;
+  bottom: 1.5rem;
+  left: 1.5rem;
+  right: 1.5rem;
+  max-width: 680px;
+  margin: 0 auto;
+  z-index: 9999;
+  animation: slideUp 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes slideUp {
+  from {
+    transform: translateY(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.bannerCard {
+  background: var(--bg-card, #0f172a);
+  border: 1.5px solid var(--border-card, #334155);
+  border-radius: 14px;
+  padding: 1rem 1.25rem;
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.5), 0 8px 10px -6px rgba(0, 0, 0, 0.3);
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  color: var(--text-main, #f8fafc);
+}
+
+.bannerIconWrapper {
+  width: 42px;
+  height: 42px;
+  border-radius: 10px;
+  background: rgba(245, 158, 11, 0.15);
+  color: #fbbf24;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.cookieIcon {
+  color: #fbbf24;
+}
+
+.bannerContent {
+  flex: 1;
+}
+
+.bannerHeader {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  margin-bottom: 0.25rem;
+  flex-wrap: wrap;
+}
+
+.bannerTitle {
+  font-size: 0.92rem;
+  font-weight: 700;
+  color: var(--text-main, #f8fafc);
+}
+
+.securityPill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  font-size: 0.72rem;
+  font-weight: 600;
+  background: rgba(16, 185, 129, 0.15);
+  color: #34d399;
+  padding: 0.15rem 0.45rem;
+  border-radius: 9999px;
+  border: 1px solid rgba(16, 185, 129, 0.3);
+}
+
+.bannerText {
+  font-size: 0.82rem;
+  color: var(--text-muted, #94a3b8);
+  line-height: 1.45;
+  margin: 0;
+}
+
+.bannerLink {
+  color: var(--brand-primary, #4f46e5);
+  font-weight: 600;
+  text-decoration: underline;
+  transition: color 0.15s ease;
+}
+
+.bannerLink:hover {
+  color: #fb923c;
+}
+
+.bannerActions {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex-shrink: 0;
+}
+
+.acceptBtn {
+  background: var(--brand-gradient, linear-gradient(135deg, #4f46e5 0%, #3b82f6 50%, #10b981 100%));
+  color: #ffffff;
+  border: none;
+  border-radius: 8px;
+  padding: 0.55rem 0.95rem;
+  font-size: 0.82rem;
+  font-weight: 700;
+  cursor: pointer;
+  white-space: nowrap;
+  box-shadow: 0 2px 6px var(--brand-glow, rgba(79, 70, 229, 0.25));
+  transition: all 0.2s ease;
+}
+
+.acceptBtn:hover {
+  filter: brightness(1.1);
+  box-shadow: 0 4px 10px var(--brand-glow, rgba(79, 70, 229, 0.4));
+}
+
+.closeBtn {
+  background: transparent;
+  border: none;
+  color: var(--text-muted, #94a3b8);
+  padding: 0.4rem;
+  border-radius: 6px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.15s ease;
+}
+
+.closeBtn:hover {
+  background: var(--bg-card-secondary, #1e293b);
+  color: var(--text-main, #f8fafc);
+}
+
+@media (max-width: 640px) {
+  .bannerWrapper {
+    left: 1rem;
+    right: 1rem;
+    bottom: 1rem;
+  }
+
+  .bannerCard {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.75rem;
+  }
+
+  .bannerActions {
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .acceptBtn {
+    flex: 1;
+    text-align: center;
+  }
+}

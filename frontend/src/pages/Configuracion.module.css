@@ -1,0 +1,1294 @@
+/* ========================================================
+   CSS MODULE: CONFIGURACIÓN (NEOFOOD)
+   ======================================================== */
+
+.configContainer {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+/* HEADER INSTITUCIONAL */
+.configHeader {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.configTitle {
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: var(--text-main, #f8fafc);
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  margin: 0;
+  letter-spacing: -0.02em;
+}
+
+.configSubtitle {
+  font-size: 0.875rem;
+  color: var(--text-muted, #94a3b8);
+  margin: 0;
+}
+
+/* TABS DE NAVEGACIÓN FULL-WIDTH Y ESTILIZADOS */
+.configTabsNav {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1rem;
+  width: 100%;
+}
+
+@media (max-width: 1100px) {
+  .configTabsNav {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 640px) {
+  .configTabsNav {
+    grid-template-columns: 1fr;
+    gap: 0.75rem;
+  }
+}
+
+.configTabBtn {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 0.95rem;
+  padding: 1.1rem 1.35rem;
+  background-color: var(--bg-card, #0f172a);
+  border: 1px solid var(--border-card, #334155);
+  border-radius: var(--radius-xl, 1.15rem);
+  color: var(--text-muted, #94a3b8);
+  cursor: pointer;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+  transition: all 0.22s cubic-bezier(0.4, 0, 0.2, 1);
+  overflow: hidden;
+  text-align: left;
+}
+
+.configTabBtn:not(.configTabBtnActive):hover {
+  border-color: var(--brand-primary, #4f46e5);
+  background-color: var(--bg-card-secondary, #1a253a);
+  color: #ffffff;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px -2px var(--brand-glow, rgba(79, 70, 229, 0.25));
+}
+
+.configTabBtnActive {
+  background-color: var(--bg-card-secondary, #1a253a) !important;
+  border-color: var(--brand-primary, #4f46e5) !important;
+  color: #ffffff !important;
+  box-shadow: 0 8px 24px -3px var(--brand-glow, rgba(79, 70, 229, 0.35)) !important;
+  transform: translateY(-2px);
+  cursor: default !important;
+}
+
+.configTabBtnActive:hover {
+  transform: translateY(-2px) !important;
+  cursor: default !important;
+}
+
+.configTabBtnActive::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: var(--brand-gradient, linear-gradient(135deg, #4f46e5 0%, #10b981 100%));
+  border-radius: 4px 4px 0 0;
+}
+
+.configTabIconWrap {
+  width: 44px;
+  height: 44px;
+  border-radius: 0.875rem;
+  background-color: var(--bg-card-secondary, #1a253a);
+  border: 1px solid var(--border-card, rgba(255, 255, 255, 0.12));
+  color: var(--brand-primary, #4f46e5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.configTabBtn:not(.configTabBtnActive):hover .configTabIconWrap {
+  background-color: rgba(79, 70, 229, 0.15);
+  border-color: var(--brand-primary, #4f46e5);
+  color: #818cf8;
+  transform: scale(1.06);
+}
+
+.configTabBtnActive .configTabIconWrap {
+  background: var(--brand-gradient, linear-gradient(135deg, #4f46e5 0%, #3b82f6 50%, #10b981 100%));
+  border-color: transparent;
+  color: #ffffff;
+  box-shadow: 0 4px 12px var(--brand-glow, rgba(79, 70, 229, 0.35));
+  transform: scale(1.04);
+}
+
+.configTabBtnActive:hover .configTabIconWrap {
+  transform: scale(1.04) !important;
+}
+
+.configTabInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+  flex: 1;
+  min-width: 0;
+}
+
+.configTabTitle {
+  font-size: 0.95rem;
+  font-weight: 800;
+  color: var(--text-main, #f8fafc);
+  letter-spacing: -0.01em;
+}
+
+.configTabBtnActive .configTabTitle {
+  color: #ffffff;
+}
+
+.configTabDesc {
+  font-size: 0.775rem;
+  color: var(--text-muted, #94a3b8);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.configTabBadge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.75rem;
+  font-weight: 800;
+  padding: 0.25rem 0.65rem;
+  border-radius: 9999px;
+  background-color: var(--bg-card, #0f172a);
+  color: var(--text-muted, #94a3b8);
+  border: 1px solid var(--border-card, #334155);
+  transition: all 0.2s ease;
+  flex-shrink: 0;
+}
+
+.configTabBtnActive .configTabBadge {
+  background-color: rgba(0, 0, 0, 0.4);
+  color: #ffffff;
+  border-color: rgba(255, 255, 255, 0.15);
+}
+
+/* TARJETA PRINCIPAL */
+.configCard {
+  background-color: #131c2e;
+  border-radius: var(--radius-xl, 1.25rem);
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.4);
+  border: 1.5px solid rgba(255, 255, 255, 0.12);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+/* CABECERA INTERNA DE LA TARJETA */
+.configCardHeader {
+  padding: 1.25rem 1.5rem;
+  background-color: #1a253a;
+  border-bottom: 2px solid var(--brand-primary, #4f46e5);
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+@media (min-width: 640px) {
+  .configCardHeader {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+  }
+}
+
+.configCardHeaderLeft,
+.configCardHeaderLeft * {
+  border: none !important;
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+.configCardHeaderLeft {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  border: none !important;
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+.configCardHeaderLeft:focus,
+.configCardHeaderLeft:focus-within,
+.configCardHeaderLeft:focus-visible,
+.configCardHeaderLeft:active {
+  border: none !important;
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+.configCardTitle {
+  font-size: 1.05rem;
+  font-weight: 800;
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin: 0;
+  letter-spacing: -0.01em;
+  border: none !important;
+  outline: none !important;
+  box-shadow: none !important;
+  user-select: text;
+}
+
+.configCardTitle svg {
+  color: var(--brand-primary, #4f46e5);
+}
+
+.configCardSubtitle {
+  font-size: 0.8125rem;
+  color: #94a3b8;
+  margin: 0;
+  border: none !important;
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+.configCardBadge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.35rem 0.75rem;
+  border-radius: 0.5rem;
+  font-size: 0.75rem;
+  font-weight: 700;
+  background-color: rgba(79, 70, 229, 0.12);
+  color: #818cf8;
+  border: 1px solid rgba(79, 70, 229, 0.3);
+  align-self: flex-start;
+}
+
+/* CUERPO DE LA TARJETA */
+.configCardBody {
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  background-color: #0b0f19;
+}
+
+/* FORMULARIO DE AGREGAR */
+.configAddSection {
+  background-color: #131c2e;
+  border: 1.5px solid rgba(255, 255, 255, 0.12);
+  border-radius: 1rem;
+  padding: 1.15rem 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.25);
+}
+
+.configAddLabel {
+  font-size: 0.75rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: #cbd5e1;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.configAddForm {
+  display: flex;
+  gap: 0.75rem;
+  align-items: center;
+}
+
+@media (max-width: 640px) {
+  .configAddForm {
+    flex-direction: column;
+    align-items: stretch;
+  }
+}
+
+/* GRID DE MESAS */
+.configTablesGrid {
+  display: grid;
+  grid-template-columns: repeat(1, 1fr);
+  gap: 1rem;
+}
+
+@media (min-width: 640px) {
+  .configTablesGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1024px) {
+  .configTablesGrid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (min-width: 1280px) {
+  .configTablesGrid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+.configTableCard {
+  border: 1.5px solid rgba(255, 255, 255, 0.1);
+  padding: 1.05rem 1.25rem;
+  border-radius: 1rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #131c2e;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.25);
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  gap: 0.75rem;
+}
+
+.configTableCard:hover {
+  border-color: var(--brand-primary, #4f46e5);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 18px -4px var(--brand-glow, rgba(79, 70, 229, 0.25)), 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.configTableCardLeft,
+.configTableCardLeft * {
+  border: none !important;
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+.configTableCardLeft {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+  min-width: 0;
+  border: none !important;
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+.configTableIconBox {
+  width: 42px;
+  height: 42px;
+  border-radius: 0.75rem;
+  background: rgba(79, 70, 229, 0.15);
+  color: #818cf8;
+  border: none !important;
+  outline: none !important;
+  box-shadow: none !important;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  transition: all 0.2s ease;
+}
+
+.configTableCard:hover .configTableIconBox {
+  background: var(--brand-gradient, linear-gradient(135deg, #4f46e5 0%, #10b981 100%));
+  color: #ffffff;
+  transform: scale(1.05);
+}
+
+.configTableTextGroup {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  border: none !important;
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+.configTableTextGroup:focus,
+.configTableTextGroup:focus-within,
+.configTableTextGroup:focus-visible,
+.configTableTextGroup:active,
+.configTableTextGroup:hover {
+  border: none !important;
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+.configTableName {
+  font-weight: 800;
+  color: #ffffff;
+  font-size: 0.95rem;
+  margin: 0;
+  line-height: 1.25;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  border: none !important;
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+.configTableStatus {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: #94a3b8;
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  margin-top: 0.15rem;
+  border: none !important;
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+.configTableDot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background-color: #10b981;
+  box-shadow: 0 0 6px rgba(16, 185, 129, 0.6);
+}
+
+/* LISTA DE MÉTODOS DE PAGO */
+.configMethodsList {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.configMethodRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.1rem 1.35rem;
+  border: 1.5px solid rgba(255, 255, 255, 0.1);
+  border-radius: 1rem;
+  background-color: #131c2e;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.25);
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  gap: 1rem;
+}
+
+.configMethodRow:hover {
+  border-color: var(--brand-primary, #4f46e5);
+  box-shadow: 0 6px 16px var(--brand-glow, rgba(79, 70, 229, 0.25));
+}
+
+.configMethodRowInactive {
+  background-color: #0b0f19;
+  opacity: 0.65;
+}
+
+.configMethodLeft,
+.configMethodLeft * {
+  border: none;
+  outline: none;
+  box-shadow: none;
+}
+
+.configMethodLeft {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  border: none !important;
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+.configMethodIconBox {
+  width: 42px;
+  height: 42px;
+  border-radius: 0.625rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  transition: all 0.2s ease;
+}
+
+.configMethodIconBox svg,
+.configMethodIconBox svg rect {
+  fill: none !important;
+}
+
+.iconActive {
+  background-color: rgba(16, 185, 129, 0.15);
+  color: #34d399;
+  border: 1px solid rgba(16, 185, 129, 0.3);
+}
+
+.iconInactive {
+  background-color: var(--bg-card-secondary, #1a253a);
+  color: var(--text-muted, #94a3b8);
+  border: 1px solid var(--border-card, rgba(255, 255, 255, 0.12));
+}
+
+.configMethodName {
+  font-weight: 800;
+  color: var(--text-main, #f8fafc);
+  font-size: 0.95rem;
+  margin: 0;
+  line-height: 1.25;
+}
+
+.configMethodDesc {
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: var(--text-muted, #94a3b8);
+  margin-top: 0.15rem;
+}
+
+.configStatusBadgeBtn {
+  padding: 0.45rem 1rem;
+  border-radius: 0.625rem;
+  font-weight: 700;
+  font-size: 0.8125rem;
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  border: 1.5px solid transparent;
+  flex-shrink: 0;
+}
+
+.configStatusBadgeBtn:hover {
+  transform: translateY(-1px);
+}
+
+.configStatusBadgeBtnActive {
+  background-color: rgba(16, 185, 129, 0.15);
+  color: #34d399;
+  border-color: rgba(16, 185, 129, 0.3);
+  box-shadow: 0 1px 2px rgba(16, 185, 129, 0.1);
+}
+
+.configStatusBadgeBtnActive:hover {
+  background-color: rgba(239, 68, 68, 0.15);
+  color: #f87171;
+  border-color: rgba(239, 68, 68, 0.3);
+}
+
+.configStatusBadgeBtnInactive {
+  background-color: var(--bg-input, #020617);
+  color: var(--text-muted, #94a3b8);
+  border-color: var(--border-card, #334155);
+}
+
+.configStatusBadgeBtnInactive:hover {
+  background-color: rgba(16, 185, 129, 0.15);
+  color: #34d399;
+  border-color: rgba(16, 185, 129, 0.3);
+}
+
+.configDeleteMethodBtn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.45rem 0.65rem;
+  border-radius: 0.5rem;
+  border: 1px solid rgba(239, 68, 68, 0.3);
+  background-color: rgba(239, 68, 68, 0.12);
+  color: #f87171;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.configDeleteMethodBtn:hover {
+  background-color: rgba(239, 68, 68, 0.25);
+  border-color: #ef4444;
+  color: #ffffff;
+}
+
+/* ESTILOS TIENDA VIRTUAL */
+.storeContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.storeLinkCard {
+  background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+  border: 1px solid var(--border-card, #334155);
+  color: #ffffff;
+  border-radius: 1.15rem;
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  box-shadow: 0 8px 24px -4px rgba(0, 0, 0, 0.5);
+  position: relative;
+  overflow: hidden;
+}
+
+.storeLinkCard::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: var(--brand-gradient, linear-gradient(135deg, #4f46e5 0%, #3b82f6 50%, #10b981 100%));
+}
+
+@media (min-width: 768px) {
+  .storeLinkCard {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+  }
+}
+
+.storeLinkInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.storeLinkTitle {
+  font-size: 1.15rem;
+  font-weight: 800;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin: 0;
+  color: #f8fafc;
+}
+
+.storeLinkTitle svg {
+  color: var(--brand-primary, #4f46e5);
+}
+
+.storeLinkDesc {
+  font-size: 0.85rem;
+  color: var(--text-muted, #94a3b8);
+  margin: 0;
+}
+
+.storeLinkUrlBox {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background-color: #0b0f19;
+  padding: 0.5rem 0.85rem;
+  border-radius: 0.5rem;
+  border: 1.5px solid rgba(255, 255, 255, 0.12);
+  font-family: monospace;
+  font-size: 0.85rem;
+  color: #38bdf8;
+  word-break: break-all;
+}
+
+.storeLinkActions {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  flex-shrink: 0;
+}
+
+.storeActionBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.6rem 1rem;
+  border-radius: 0.625rem;
+  font-size: 0.85rem;
+  font-weight: 700;
+  cursor: pointer;
+  border: none;
+  transition: all 0.2s ease;
+}
+
+.storeActionBtnPrimary {
+  background: var(--brand-gradient, linear-gradient(135deg, #4f46e5 0%, #3b82f6 50%, #10b981 100%));
+  color: #ffffff;
+  box-shadow: 0 4px 12px var(--brand-glow, rgba(79, 70, 229, 0.35));
+}
+
+.storeActionBtnPrimary:hover {
+  filter: brightness(1.1);
+  transform: translateY(-1px);
+}
+
+.storeActionBtnOutline {
+  background-color: var(--bg-card-secondary, #1a253a);
+  color: #f8fafc;
+  border: 1px solid var(--border-card, rgba(255, 255, 255, 0.12));
+}
+
+.storeActionBtnOutline:hover {
+  background-color: #1e293b;
+  border-color: var(--brand-primary, #4f46e5);
+}
+
+.storeSectionCard {
+  background-color: #131c2e;
+  border: 1.5px solid rgba(255, 255, 255, 0.12);
+  border-radius: 1rem;
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.storeSectionHeader,
+.storeSectionHeader * {
+  border: none;
+  outline: none;
+  box-shadow: none;
+}
+
+.storeSectionHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid var(--border-card, #334155);
+  padding-bottom: 0.875rem;
+}
+
+.storeSectionTitle {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--text-main, #f8fafc);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin: 0;
+}
+
+.storeWhatsappInputWrapper {
+  width: 100%;
+}
+
+.storeWhatsappInput {
+  padding: 0.75rem 1rem;
+  border-radius: 0.625rem;
+  border: 1px solid rgba(16, 185, 129, 0.4);
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #f8fafc;
+  background-color: rgba(16, 185, 129, 0.06);
+  transition: all 0.2s ease;
+  width: 100%;
+}
+
+.storeWhatsappInput:focus {
+  outline: none;
+  border-color: #10b981;
+  background-color: rgba(16, 185, 129, 0.12);
+  box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.25);
+}
+
+.storeWhatsappHint {
+  font-size: 0.75rem;
+  color: #34d399;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  margin-top: 0.25rem;
+}
+
+.storeFormGrid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.25rem;
+}
+
+@media (min-width: 768px) {
+  .storeFormGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.storeFieldBox {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.storeFieldBoxFull {
+  grid-column: 1 / -1;
+}
+
+.storeLabel {
+  font-size: 0.825rem;
+  font-weight: 700;
+  color: var(--text-muted, #94a3b8);
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.storeInput {
+  padding: 0.65rem 0.85rem;
+  border-radius: 0.625rem;
+  border: 1px solid var(--border-card, #334155);
+  font-size: 0.875rem;
+  color: var(--text-main, #f8fafc);
+  background-color: var(--bg-input, #020617);
+  transition: all 0.2s ease;
+}
+
+.storeInput:focus {
+  outline: none;
+  border-color: var(--brand-primary, #4f46e5);
+  box-shadow: 0 0 0 3px var(--brand-glow, rgba(79, 70, 229, 0.25));
+}
+
+.storeUploadGroup {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.25rem;
+}
+
+@media (min-width: 768px) {
+  .storeUploadGroup {
+    grid-template-columns: 1fr 2fr;
+  }
+}
+
+.storeUploadBox {
+  border: 2px dashed rgba(255, 255, 255, 0.16);
+  border-radius: 0.875rem;
+  padding: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  gap: 0.75rem;
+  background-color: var(--bg-card-secondary, #1a253a);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.storeUploadBox:hover {
+  border-color: var(--brand-primary, #4f46e5);
+  background-color: var(--brand-hover-bg, rgba(79, 70, 229, 0.12));
+}
+
+.storeImagePreview {
+  width: 90px;
+  height: 90px;
+  border-radius: 0.75rem;
+  object-fit: contain;
+  background-color: #020617;
+  border: 1px solid var(--border-subtle, #1e293b);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.storeBannerPreview {
+  width: 100%;
+  height: 100%;
+  min-height: 140px;
+  max-height: 180px;
+  border-radius: 0.75rem;
+  object-fit: cover;
+  border: 1px solid #e2e8f0;
+  display: block;
+}
+
+/* ======================================================== */
+/* ESTILOS: CONFIGURACIÓN DE IMPRESORA POS Y FORMATO TICKET */
+/* ======================================================== */
+.printerContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.printerLayout {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+}
+
+@media (min-width: 1024px) {
+  .printerLayout {
+    grid-template-columns: 1.35fr 1fr;
+    align-items: start;
+  }
+}
+
+.printerWidthCards {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
+}
+
+.printerWidthCard {
+  border: 1px solid var(--border-card, #334155);
+  background-color: var(--bg-card, #0f172a);
+  border-radius: 0.875rem;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  position: relative;
+  text-align: left;
+}
+
+.printerWidthCard:not(.printerWidthCardActive):hover {
+  border-color: var(--brand-primary, #4f46e5);
+  background-color: var(--brand-hover-bg, rgba(79, 70, 229, 0.12));
+}
+
+.printerWidthCardActive {
+  border-color: var(--brand-primary, #4f46e5) !important;
+  background-color: var(--brand-subtle-bg, rgba(79, 70, 229, 0.18)) !important;
+  box-shadow: 0 4px 12px var(--brand-glow, rgba(79, 70, 229, 0.35)) !important;
+  cursor: default !important;
+}
+
+.printerWidthCardActive:hover {
+  cursor: default !important;
+}
+
+.printerWidthCardBadge {
+  position: absolute;
+  top: 0.75rem;
+  right: 0.75rem;
+  font-size: 0.65rem;
+  font-weight: 700;
+  padding: 0.15rem 0.45rem;
+  border-radius: 9999px;
+  background: var(--brand-gradient, linear-gradient(135deg, #4f46e5 0%, #3b82f6 50%, #10b981 100%));
+  color: #ffffff;
+}
+
+.printerWidthTitle {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--text-main, #f8fafc);
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.printerWidthDesc {
+  font-size: 0.75rem;
+  color: var(--text-muted, #94a3b8);
+  line-height: 1.3;
+}
+
+.printerSwitchesGrid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0.75rem;
+}
+
+@media (min-width: 640px) {
+  .printerSwitchesGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.printerToggleItem {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.75rem 1rem;
+  background-color: #131c2e;
+  border: 1.5px solid rgba(255, 255, 255, 0.12);
+  border-radius: 0.75rem;
+  gap: 0.75rem;
+}
+
+.printerToggleInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+}
+
+.printerToggleTitle {
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: var(--text-main, #f8fafc);
+}
+
+.printerToggleDesc {
+  font-size: 0.7rem;
+  color: var(--text-muted, #94a3b8);
+}
+
+.printerToggleSwitch {
+  position: relative;
+  width: 44px;
+  height: 24px;
+  background-color: #334155;
+  border-radius: 9999px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  flex-shrink: 0;
+  border: none;
+  padding: 0;
+}
+
+.printerToggleSwitchActive {
+  background: var(--brand-gradient, linear-gradient(135deg, #4f46e5 0%, #3b82f6 50%, #10b981 100%));
+}
+
+.printerToggleThumb {
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 20px;
+  height: 20px;
+  background-color: #ffffff;
+  border-radius: 50%;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+  transition: transform 0.2s ease;
+}
+
+.printerToggleSwitchActive .printerToggleThumb {
+  transform: translateX(20px);
+}
+
+.printerPreviewCard {
+  background-color: #18181b;
+  border: 1px solid #27272a;
+  border-radius: 1rem;
+  padding: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  position: sticky;
+  top: 1.5rem;
+}
+
+.printerPreviewHeader {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid #27272a;
+  padding-bottom: 0.75rem;
+}
+
+.printerPreviewTitle {
+  font-size: 0.875rem;
+  font-weight: 700;
+  color: #f4f4f5;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.printerReceiptPaper {
+  background-color: #ffffff;
+  border-radius: 4px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+  transition: width 0.2s ease;
+  overflow: hidden;
+  position: relative;
+}
+
+.printerReceiptPaper80 {
+  width: 320px;
+}
+
+.printerReceiptPaper58 {
+  width: 240px;
+}
+
+.printerReceiptFrame {
+  width: 100%;
+  height: 380px;
+  border: none;
+  display: block;
+}
+
+/* ========================================================
+   OPTIMIZACIONES MÓVILES (CONFIGURACIÓN ESTILO APP)
+   ======================================================== */
+@media (max-width: 900px) {
+
+  .printerLayout,
+  .printerConfigLayout {
+    grid-template-columns: 1fr !important;
+  }
+
+  .printerPreviewCard {
+    position: static !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+    overflow-x: auto !important;
+  }
+
+  .printerReceiptPaper80,
+  .printerReceiptPaper58 {
+    max-width: 100% !important;
+  }
+}
+
+@media (max-width: 768px) {
+  .configContainer {
+    gap: 1rem !important;
+  }
+
+  .configTitle {
+    font-size: 1.25rem !important;
+  }
+
+  /* Barra de pestañas con desplazamiento horizontal fluido nativo */
+  .configTabsNav {
+    display: flex !important;
+    overflow-x: auto !important;
+    flex-wrap: nowrap !important;
+    gap: 0.65rem !important;
+    padding-bottom: 0.5rem !important;
+    -webkit-overflow-scrolling: touch !important;
+    scrollbar-width: none !important;
+    touch-action: pan-x !important;
+  }
+
+  .configTabsNav::-webkit-scrollbar {
+    display: none !important;
+  }
+
+  .configTabBtn {
+    flex: 0 0 auto !important;
+    min-width: 200px !important;
+    padding: 0.85rem 1.15rem !important;
+    border-radius: 1rem !important;
+  }
+
+  .configCard {
+    padding: 1.15rem !important;
+    border-radius: 1rem !important;
+  }
+
+  .printerWidthCards,
+  .printerPaperWidthSelector {
+    grid-template-columns: 1fr !important;
+  }
+
+  .printerToggleItem,
+  .printerOptionRow {
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    gap: 0.75rem !important;
+  }
+}
+
+/* ========================================================
+   ESTILOS DE TIENDA VIRTUAL EN CONFIGURACIÓN
+   ======================================================== */
+.storeUploadGroup {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.25rem;
+  width: 100%;
+}
+
+@media (min-width: 960px) {
+  .storeUploadGroup {
+    grid-template-columns: 1fr 2fr;
+  }
+}
+
+.storeFieldBox {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  width: 100%;
+  min-width: 0;
+}
+
+/* ========================================================
+   SWITCH Y PREVIEW DE LOGO TIENDA VIRTUAL (CSS MODULAR)
+   ======================================================== */
+.storeToggleContainer {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  cursor: pointer;
+  user-select: none;
+}
+
+.storeToggleText {
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+}
+
+.storeToggleTrack {
+  width: 44px;
+  height: 24px;
+  background-color: #334155;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 9999px;
+  position: relative;
+  transition: all 0.2s ease;
+  cursor: pointer;
+}
+
+.storeToggleTrackActive {
+  background-color: #10b981;
+  border-color: rgba(16, 185, 129, 0.4);
+  box-shadow: 0 0 10px rgba(16, 185, 129, 0.3);
+}
+
+.storeToggleThumb {
+  width: 18px;
+  height: 18px;
+  background-color: #ffffff;
+  border-radius: 50%;
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+  transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.storeToggleThumbActive {
+  transform: translateX(20px);
+}
+
+.storeLogoPreviewBox {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 1.25rem;
+  border: 1.5px solid rgba(255, 255, 255, 0.14);
+  border-radius: 1rem;
+  background-color: rgba(19, 28, 46, 0.95);
+  gap: 0.75rem;
+  text-align: center;
+  height: 100%;
+  min-height: 220px;
+}
+
+.storeLogoImgWrapper {
+  width: 80px;
+  height: 80px;
+  border-radius: 1rem;
+  border: 2px solid rgba(255, 255, 255, 0.14);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+  background-color: #0b0f19;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}

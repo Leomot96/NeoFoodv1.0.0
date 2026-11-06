@@ -1,0 +1,98 @@
+/* ========================================================
+   SISTEMA DE DISEÑO NEOFOOD - ESTILO OFICIAL LANDING
+   ======================================================== */
+
+:root {
+  /* Fondos Estilo Landing */
+  --bg-app: #0b0f19;
+  --bg-card: #131c2e;
+  --bg-card-secondary: #1a253a;
+  --bg-input: #0b0f19;
+  
+  /* Bordes */
+  --border-subtle: rgba(255, 255, 255, 0.08);
+  --border-card: rgba(255, 255, 255, 0.12);
+  
+  /* Marca NeoFood Oficial (Índigo & Esmeralda) */
+  --brand-primary: #4f46e5;
+  --brand-primary-hover: #4338ca;
+  --brand-secondary: #10b981;
+  --brand-gradient: linear-gradient(135deg, #4f46e5 0%, #3b82f6 50%, #10b981 100%);
+  --brand-glow: rgba(79, 70, 229, 0.35);
+  
+  /* Tipografía */
+  --text-main: #f8fafc;
+  --text-muted: #94a3b8;
+  --text-subtle: #64748b;
+  
+  /* Semánticos */
+  --color-success: #10b981;
+  --color-success-bg: rgba(16, 185, 129, 0.12);
+  --color-warning: #f59e0b;
+  --color-warning-bg: rgba(245, 158, 11, 0.12);
+  --color-danger: #ef4444;
+  --color-danger-bg: rgba(239, 68, 68, 0.12);
+  --color-info: #3b82f6;
+  --color-info-bg: rgba(59, 130, 246, 0.12);
+
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --radius-xl: 24px;
+  --radius-full: 9999px;
+  
+  --transition-fast: 0.15s ease;
+  --transition-normal: 0.25s ease;
+
+  /* Aliases de compatibilidad con componentes existentes */
+  --primary: var(--brand-primary);
+  --primary-hover: var(--brand-primary-hover);
+  --primary-light: #818cf8;
+  --primary-subtle: var(--brand-glow);
+  --primary-shadow: var(--brand-glow);
+
+  --secondary: var(--brand-secondary);
+  --secondary-hover: #059669;
+  --secondary-light: #34d399;
+  --secondary-subtle: rgba(16, 185, 129, 0.14);
+
+  --success: var(--color-success);
+  --warning: var(--color-warning);
+  --danger: var(--color-danger);
+  --info: var(--color-info);
+  --credit: #8b5cf6;
+
+  --success-bg: var(--color-success-bg);
+  --success-text: var(--color-success);
+  --warning-bg: var(--color-warning-bg);
+  --warning-text: var(--color-warning);
+  --danger-bg: var(--color-danger-bg);
+  --danger-text: var(--color-danger);
+  --danger-hover: #dc2626;
+  --info-bg: var(--color-info-bg);
+  --info-text: var(--color-info);
+  --credit-bg: rgba(139, 92, 246, 0.12);
+  --credit-text: #a78bfa;
+
+  --bg-primary: var(--bg-app);
+  --bg-secondary: var(--bg-card);
+  --bg-tertiary: var(--bg-card-secondary);
+  --surface: var(--bg-card);
+  --surface-hover: var(--bg-card-secondary);
+  --surface-active: #334155;
+
+  --border: var(--border-subtle);
+  --border-focus: var(--brand-primary);
+
+  --text-primary: var(--text-main);
+  --text-secondary: var(--text-muted);
+
+  --bg-surface: var(--surface);
+  --bg-subtle: var(--bg-card-secondary);
+  --bg-hover: var(--surface-hover);
+  --border-color: var(--border);
+
+  --font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+  --font-orbitron: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+  --font-manrope: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+}

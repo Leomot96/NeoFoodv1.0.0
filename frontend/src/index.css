@@ -1,0 +1,990 @@
+/* ========================================================
+   ESTILOS COMPONENTES EXTERNOS (DATEPICKER)
+   ======================================================== */
+@import './styles/components/datepicker.css';
+
+:root {
+  /* Fondos Estilo Landing */
+  --bg-app: #0b0f19;
+  --bg-card: #131c2e;
+  --bg-card-secondary: #1a253a;
+  --bg-input: #0b0f19;
+  --bg-surface: #131c2e;
+  --bg-subtle: #1a253a;
+  --bg-hover: #1f2d47;
+
+  /* Bordes */
+  --border-subtle: rgba(255, 255, 255, 0.08);
+  --border-card: rgba(255, 255, 255, 0.12);
+  --border-color: rgba(255, 255, 255, 0.08);
+
+  /* Marca NeoFood Oficial (Índigo & Esmeralda) */
+  --brand-primary: #4f46e5;
+  --brand-primary-hover: #4338ca;
+  --brand-secondary: #10b981;
+  --brand-gradient: linear-gradient(135deg, #4f46e5 0%, #3b82f6 50%, #10b981 100%);
+  --brand-glow: rgba(79, 70, 229, 0.35);
+  --primary: #4f46e5;
+  --primary-hover: #4338ca;
+  --primary-light: rgba(79, 70, 229, 0.15);
+  --primary-light-text: #10b981;
+  --primary-shadow: rgba(79, 70, 229, 0.35);
+
+  /* Tipografía */
+  --text-main: #f8fafc;
+  --text-muted: #94a3b8;
+  --text-subtle: #64748b;
+  --text-secondary: #94a3b8;
+
+  /* Semánticos */
+  --color-success: #10b981;
+  --color-success-bg: rgba(16, 185, 129, 0.12);
+  --color-warning: #f59e0b;
+  --color-warning-bg: rgba(245, 158, 11, 0.12);
+  --color-danger: #ef4444;
+  --color-danger-bg: rgba(239, 68, 68, 0.12);
+  --color-info: #3b82f6;
+  --color-info-bg: rgba(59, 130, 246, 0.12);
+
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --radius-xl: 24px;
+  --radius-full: 9999px;
+
+  --transition-fast: 0.15s ease;
+  --transition-normal: 0.25s ease;
+}
+
+html,
+body {
+  height: 100%;
+  font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+  background-color: var(--bg-app);
+  color: var(--text-main);
+  margin: 0;
+  padding: 0;
+}
+
+/* Custom scrollbars */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bg-card);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--border-card);
+  border-radius: var(--radius-full);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--brand-primary);
+}
+
+/* ========================================================
+   IDENTIDAD DE MARCA Y LOGOTIPO NEOFOOD
+   ======================================================== */
+.brand-neo {
+  font-family: var(--font-orbitron, inherit);
+  font-weight: 800;
+  letter-spacing: 0.05em;
+  color: var(--brand-primary);
+}
+
+.brand-food {
+  font-family: var(--font-manrope, inherit);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  color: var(--color-warning);
+  margin-left: 1px;
+}
+
+
+/* ========================================================
+  UTILIDADES Y ESTILOS GLOBALES
+   ======================================================== */
+.text-gradient {
+  background: var(--brand-gradient);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.surface-elevated {
+  background-color: var(--surface);
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow-sm);
+  border-radius: var(--radius-lg);
+}
+
+.interactive-surface {
+  background-color: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  transition: all var(--transition-fast);
+}
+
+.interactive-surface:hover {
+  background-color: var(--surface-hover);
+  border-color: var(--border-focus);
+}
+
+/* ========================================================
+   INPUTS TYPE NUMBER (SIN FLECHAS / SPINNERS GLOBALMENTE)
+   ======================================================== */
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+  -webkit-appearance: none !important;
+  margin: 0 !important;
+}
+
+input[type="number"] {
+  -moz-appearance: textfield !important;
+  appearance: textfield !important;
+}
+
+/* ========================================================
+   SISTEMA DE TABLAS GLOBAL (NEO-TABLE - DARK SLATE)
+   ======================================================== */
+.neo-table-card {
+  background-color: var(--bg-card, #0f172a);
+  border-radius: var(--radius-xl, 1rem);
+  border: 1px solid var(--border-subtle, #1e293b);
+  box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.5);
+  overflow: hidden;
+  width: 100%;
+}
+
+.neo-table-responsive {
+  width: 100%;
+  overflow-x: auto;
+}
+
+.neo-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+  font-size: 0.875rem;
+  color: var(--text-main, #f8fafc);
+  table-layout: fixed !important;
+}
+
+.neo-table thead {
+  background-color: #1e293b !important;
+  border-bottom: 2px solid var(--brand-primary, #4f46e5) !important;
+}
+
+.neo-table th {
+  padding: 0.875rem 1.25rem;
+  background-color: #1e293b !important;
+  color: #ffffff !important;
+  font-weight: 800;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  border-bottom: 2px solid var(--brand-primary, #4f46e5) !important;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.neo-table td {
+  padding: 1rem 1.25rem;
+  font-size: 0.875rem;
+  color: var(--text-main, #f8fafc);
+  border-bottom: 1px solid var(--border-subtle, #1e293b);
+  vertical-align: middle;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.neo-table tbody tr {
+  transition: background-color var(--transition-fast, 0.15s ease);
+}
+
+.neo-table tbody tr:hover {
+  background-color: var(--brand-hover-bg, rgba(79, 70, 229, 0.1)) !important;
+}
+
+.neo-table tbody tr:hover td {
+  color: #ffffff !important;
+}
+
+.neo-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+/* ========================================================
+   SISTEMA DE MODALES GLOBAL (NEO-MODAL - LANDING STYLE)
+   ======================================================== */
+.neo-modal-backdrop,
+.neo-modal-overlay {
+  position: fixed !important;
+  inset: 0 !important;
+  z-index: 1000 !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  background-color: rgba(2, 6, 23, 0.85) !important;
+  backdrop-filter: blur(8px) !important;
+  -webkit-backdrop-filter: blur(8px) !important;
+  padding: 1rem !important;
+  overflow-y: auto !important;
+  animation: modalFadeIn 0.2s ease-out !important;
+}
+
+.neo-modal {
+  width: 100% !important;
+  background-color: #131c2e !important;
+  border: 1.5px solid rgba(255, 255, 255, 0.14) !important;
+  border-radius: var(--radius-xl, 1.25rem) !important;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.75), 0 0 35px rgba(79, 70, 229, 0.15) !important;
+  overflow: hidden !important;
+  display: flex !important;
+  flex-direction: column !important;
+  max-height: 90vh !important;
+  animation: modalSlideUp 0.2s cubic-bezier(0.16, 1, 0.3, 1) !important;
+  color: var(--text-main, #f8fafc) !important;
+}
+
+.neo-modal-md {
+  max-width: 540px !important;
+}
+
+.neo-modal-lg {
+  max-width: 840px !important;
+}
+
+.neo-modal-xl {
+  max-width: 1140px !important;
+}
+
+.neo-modal-header {
+  padding: 1.25rem 1.5rem !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  background-color: #1a253a !important;
+  border-bottom: 2px solid #4f46e5 !important;
+  color: #ffffff !important;
+  flex-shrink: 0 !important;
+}
+
+.neo-modal-title {
+  font-size: 1.15rem !important;
+  font-weight: 800 !important;
+  color: #ffffff !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 0.65rem !important;
+  margin: 0 !important;
+  letter-spacing: -0.01em !important;
+}
+
+.neo-modal-title svg {
+  color: #4f46e5 !important;
+}
+
+.neo-modal-close-btn {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  color: #94a3b8 !important;
+  padding: 0.45rem !important;
+  border-radius: 0.625rem !important;
+  border: 1px solid rgba(255, 255, 255, 0.12) !important;
+  background-color: rgba(255, 255, 255, 0.06) !important;
+  cursor: pointer !important;
+  font-size: 0.875rem !important;
+  transition: all 0.15s ease !important;
+}
+
+.neo-modal-close-btn:hover {
+  color: #ffffff !important;
+  background-color: rgba(239, 68, 68, 0.35) !important;
+  border-color: rgba(239, 68, 68, 0.6) !important;
+  transform: scale(1.08) !important;
+}
+
+.neo-modal-body {
+  padding: 1.5rem !important;
+  overflow-y: auto !important;
+  flex: 1 !important;
+  background-color: #0b0f19 !important;
+  color: var(--text-main, #f8fafc) !important;
+}
+
+.neo-modal-footer {
+  padding: 1.1rem 1.5rem !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: flex-end !important;
+  gap: 0.75rem !important;
+  border-top: 1px solid rgba(255, 255, 255, 0.1) !important;
+  background-color: #1a253a !important;
+  flex-shrink: 0 !important;
+}
+
+/* ========================================================
+   FORMULARIOS Y CAMPOS (SECCIONES SEPARADAS E INPUTS LLAMATIVOS)
+   ======================================================== */
+.neo-form-group {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 0.45rem !important;
+  padding: 0.85rem 1rem !important;
+  background-color: #131c2e !important;
+  border: 1.5px solid rgba(255, 255, 255, 0.14) !important;
+  border-radius: 0.75rem !important;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.25) !important;
+  margin-bottom: 0.85rem !important;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1) !important;
+}
+
+.neo-form-group:hover {
+  border-color: rgba(255, 255, 255, 0.25) !important;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3) !important;
+}
+
+.neo-form-group:focus-within {
+  border-color: #4f46e5 !important;
+  background-color: #131c2e !important;
+  box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.25) !important;
+}
+
+.neo-label {
+  font-size: 0.75rem !important;
+  font-weight: 800 !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.06em !important;
+  color: #cbd5e1 !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 0.35rem !important;
+  margin-bottom: 0.2rem !important;
+}
+
+/* Inputs de texto, número, fecha, etc. */
+.neo-input,
+.neo-select,
+.neo-textarea,
+input[type="text"].neo-input,
+input[type="number"].neo-input,
+input[type="email"].neo-input,
+input[type="password"].neo-input {
+  width: 100% !important;
+  padding: 0.65rem 0.875rem !important;
+  background-color: #0b0f19 !important;
+  border: 1.5px solid rgba(255, 255, 255, 0.16) !important;
+  border-radius: 0.625rem !important;
+  font-size: 0.875rem !important;
+  font-weight: 600 !important;
+  color: #f8fafc !important;
+  outline: none !important;
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.25) !important;
+  transition: all 0.18s cubic-bezier(0.4, 0, 0.2, 1) !important;
+}
+
+/* Inputs de búsqueda o con icono a la izquierda */
+.neo-search-input,
+input[type="text"].neo-search-input,
+.neo-input-with-icon,
+input[type="text"].neo-input-with-icon {
+  padding-left: 2.75rem !important;
+}
+
+.neo-input:hover,
+.neo-select:hover,
+.neo-textarea:hover {
+  border-color: rgba(255, 255, 255, 0.3) !important;
+  background-color: #0b0f19 !important;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3) !important;
+}
+
+.neo-input:focus,
+.neo-select:focus,
+.neo-textarea:focus {
+  border-color: #4f46e5 !important;
+  background-color: #0b0f19 !important;
+  box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.25) !important;
+  transform: translateY(-1px) !important;
+}
+
+/* CustomSelect trigger acorde con los inputs */
+.custom-select-trigger,
+button[class*="CustomSelect_trigger"] {
+  background-color: #0b0f19 !important;
+  border: 1.5px solid rgba(255, 255, 255, 0.16) !important;
+  border-radius: 0.625rem !important;
+  font-weight: 600 !important;
+  color: #f8fafc !important;
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.25) !important;
+  transition: all 0.18s cubic-bezier(0.4, 0, 0.2, 1) !important;
+}
+
+.custom-select-trigger:hover,
+button[class*="CustomSelect_trigger"]:hover {
+  border-color: rgba(255, 255, 255, 0.3) !important;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3) !important;
+}
+
+.custom-select-trigger:focus,
+.custom-select-trigger.is-open,
+button[class*="CustomSelect_trigger"]:focus,
+button[class*="CustomSelect_trigger"][class*="isOpen"] {
+  border-color: #4f46e5 !important;
+  box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.25) !important;
+  transform: translateY(-1px) !important;
+}
+
+/* Botones de acción icono */
+.neo-action-icon-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.4rem;
+  border-radius: 0.5rem;
+  border: 1px solid var(--border-subtle, #1e293b);
+  background-color: var(--bg-card-secondary, #1e293b);
+  color: var(--text-muted, #94a3b8);
+  cursor: pointer;
+  transition: all 0.15s ease;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+.neo-action-icon-btn:hover {
+  background-color: var(--border-card, #334155);
+  color: var(--text-main, #f8fafc);
+  border-color: var(--text-subtle, #64748b);
+}
+
+.neo-action-icon-btn.danger:hover {
+  background-color: var(--color-danger-bg, rgba(239, 68, 68, 0.12));
+  color: var(--color-danger, #ef4444);
+  border-color: rgba(239, 68, 68, 0.3);
+}
+
+/* ========================================================
+   OPTIMIZACIONES MÓVILES GLOBALES (ESTILO APP ANDROID / IOS)
+   ======================================================== */
+
+/* Utilidades para scroll horizontal fluido en móvil */
+.neo-table-responsive,
+.neo-scroll-x {
+  width: 100% !important;
+  overflow-x: auto !important;
+  -webkit-overflow-scrolling: touch !important;
+  overscroll-behavior-x: contain !important;
+  touch-action: pan-x pan-y !important;
+}
+
+/* Ocultar scrollbar visual pero mantener deslizamiento táctil */
+.neo-no-scrollbar,
+.neo-chips-scroll {
+  overflow-x: auto !important;
+  flex-wrap: nowrap !important;
+  -webkit-overflow-scrolling: touch !important;
+  scrollbar-width: none !important;
+  -ms-overflow-style: none !important;
+}
+
+.neo-no-scrollbar::-webkit-scrollbar,
+.neo-chips-scroll::-webkit-scrollbar {
+  display: none !important;
+}
+
+@media (max-width: 768px) {
+
+  /* Tablas: Evitar que se aplasten y permitir desplazamiento lateral suave */
+  .neo-table,
+  table.neo-table {
+    min-width: 580px !important;
+  }
+
+  .neo-table th {
+    padding: 0.65rem 0.85rem !important;
+    font-size: 0.7rem !important;
+  }
+
+  .neo-table td {
+    padding: 0.75rem 0.85rem !important;
+    font-size: 0.8125rem !important;
+  }
+
+  .neo-table-card {
+    border-radius: 0.875rem !important;
+  }
+
+  /* Acciones de tabla táctiles */
+  .neo-action-icon-btn {
+    width: 2.25rem !important;
+    height: 2.25rem !important;
+    padding: 0.35rem !important;
+    -webkit-tap-highlight-color: transparent !important;
+  }
+
+  .neo-action-icon-btn:active {
+    transform: scale(0.92) !important;
+  }
+
+  /* Prevenir auto-zoom molesto en iOS Safari manteniendo tamaño legible 16px */
+  input[type="text"],
+  input[type="number"],
+  input[type="email"],
+  input[type="password"],
+  input[type="tel"],
+  select,
+  textarea,
+  .neo-input,
+  .neo-select,
+  .neo-textarea {
+    font-size: 16px !important;
+  }
+
+  /* Eliminar spinners en inputs de tipo number globalmente */
+  input[type="number"]::-webkit-outer-spin-button,
+  input[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none !important;
+    margin: 0 !important;
+  }
+
+  input[type="number"] {
+    -moz-appearance: textfield !important;
+    appearance: textfield !important;
+  }
+
+  .neo-form-group {
+    padding: 0.65rem 0.75rem !important;
+    margin-bottom: 0.65rem !important;
+    border-radius: 0.65rem !important;
+  }
+
+  /* Modales estilo Bottom Sheet nativo en móvil */
+  .neo-modal-backdrop,
+  .neo-modal-overlay {
+    padding: 0 !important;
+    align-items: flex-end !important;
+  }
+
+  .neo-modal {
+    max-height: 92vh !important;
+    border-bottom-left-radius: 0 !important;
+    border-bottom-right-radius: 0 !important;
+    border-top-left-radius: 1.5rem !important;
+    border-top-right-radius: 1.5rem !important;
+    margin-bottom: 0 !important;
+    border-left: none !important;
+    border-right: none !important;
+    border-bottom: none !important;
+    box-shadow: 0 -10px 40px rgba(0, 0, 0, 0.25) !important;
+  }
+
+  .neo-modal-header {
+    padding: 1rem 1.15rem !important;
+  }
+
+  .neo-modal-title {
+    font-size: 1.05rem !important;
+  }
+
+  .neo-modal-body {
+    padding: 1rem 1.15rem !important;
+    -webkit-overflow-scrolling: touch !important;
+  }
+
+  .neo-modal-footer {
+    padding: 0.75rem 1.15rem !important;
+    flex-wrap: wrap !important;
+    gap: 0.5rem !important;
+    padding-bottom: max(0.85rem, env(safe-area-inset-bottom, 0)) !important;
+  }
+
+  /* Botones principales con feedback táctil */
+  .neo-btn,
+  button[class*="neo-btn"] {
+    -webkit-tap-highlight-color: transparent !important;
+  }
+
+  .neo-btn:active,
+  button[class*="neo-btn"]:active {
+    transform: scale(0.97) !important;
+  }
+}
+
+/* ========================================================
+   ESTILOS DE TARJETAS Y CONTENEDORES OSCUROS (DARK SLATE)
+   ======================================================== */
+.card,
+.surface-elevated,
+.interactive-surface,
+.neo-card,
+[class*="-card"]:not([class*="Badge"]):not([class*="badge"]),
+[class*="Card"]:not([class*="Badge"]):not([class*="badge"]) {
+  background-color: var(--bg-card, #0f172a);
+  border: 1px solid var(--border-subtle, #1e293b);
+  color: var(--text-main, #f8fafc);
+}
+
+/* Campos de entrada en tema oscuro */
+input:not([type="checkbox"]):not([type="radio"]):not([type="range"]),
+select,
+textarea {
+  background-color: var(--bg-input, #020617);
+  color: var(--text-main, #f8fafc);
+  border: 1px solid var(--border-card, #334155);
+}
+
+input:not([type="checkbox"]):not([type="radio"]):not([type="range"]):focus,
+select:focus,
+textarea:focus {
+  border-color: var(--brand-primary, #4f46e5);
+  outline: none;
+  box-shadow: 0 0 0 2px var(--brand-glow, rgba(79, 70, 229, 0.25));
+}
+
+/* Forzar temas oscuros en clases de utilidad y componentes globales */
+.bg-white,
+[class*="bg-white"] {
+  background-color: var(--bg-card, #0f172a) !important;
+  color: var(--text-main, #f8fafc) !important;
+}
+
+.bg-slate-50,
+.bg-gray-50,
+.bg-slate-100,
+.bg-gray-100,
+.bg-slate-200,
+.bg-gray-200 {
+  background-color: var(--bg-card-secondary, #1e293b) !important;
+  color: var(--text-main, #f8fafc) !important;
+}
+
+.border-slate-100,
+.border-slate-200,
+.border-slate-300,
+.border-gray-100,
+.border-gray-200,
+.border-gray-300 {
+  border-color: var(--border-card, #334155) !important;
+}
+
+.text-slate-900,
+.text-slate-800,
+.text-gray-900,
+.text-gray-800 {
+  color: var(--text-main, #f8fafc) !important;
+}
+
+.text-slate-700,
+.text-slate-600,
+.text-gray-700,
+.text-gray-600 {
+  color: var(--text-muted, #94a3b8) !important;
+}
+
+/* ========================================================
+   REGLAS GLOBALES INQUEBRANTABLES PARA TABLAS, MODALES Y BOTONES
+   ======================================================== */
+table,
+.neo-table,
+[class*="table"]:not([class*="badge"]):not([class*="Badge"]) {
+  background-color: var(--bg-card, #0f172a) !important;
+  color: var(--text-main, #f8fafc) !important;
+}
+
+table thead,
+.neo-table thead,
+[class*="table"] thead,
+[class*="Table"] thead {
+  background-color: #1e293b !important;
+  border-bottom: 2px solid var(--brand-primary, #4f46e5) !important;
+}
+
+table th,
+.neo-table th,
+[class*="table"] th,
+[class*="Table"] th {
+  background-color: #1e293b !important;
+  color: #f8fafc !important;
+  border-color: #334155 !important;
+}
+
+table td,
+.neo-table td,
+[class*="table"] td,
+[class*="Table"] td {
+  border-color: #1e293b !important;
+  color: #f8fafc !important;
+}
+
+table tbody tr:hover,
+.neo-table tbody tr:hover,
+[class*="table"] tbody tr:hover {
+  background-color: var(--brand-hover-bg, rgba(79, 70, 229, 0.12)) !important;
+}
+
+table tbody tr:hover td,
+.neo-table tbody tr:hover td,
+[class*="table"] tbody tr:hover td {
+  color: #ffffff !important;
+}
+
+/* Modales */
+.neo-modal-backdrop,
+.neo-modal-overlay,
+[class*="modalBackdrop"],
+[class*="ModalBackdrop"],
+[class*="modalOverlay"] {
+  background-color: rgba(2, 6, 23, 0.85) !important;
+  backdrop-filter: blur(8px) !important;
+  -webkit-backdrop-filter: blur(8px) !important;
+}
+
+.neo-modal,
+[class*="modalWindow"],
+[class*="ModalWindow"],
+[class*="modal-content"],
+[class*="modalContent"],
+.neo-modal-sm,
+.neo-modal-md,
+.neo-modal-lg,
+.neo-modal-xl,
+.neo-modal-2xl {
+  background-color: #0f172a !important;
+  border: 1px solid #334155 !important;
+  color: #f8fafc !important;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.8) !important;
+}
+
+.neo-modal-header,
+[class*="modalHeader"],
+[class*="ModalHeader"] {
+  background-color: #1e293b !important;
+  border-bottom: 2px solid var(--brand-primary, #4f46e5) !important;
+  color: #f8fafc !important;
+}
+
+.neo-modal-title,
+[class*="modalTitle"],
+[class*="ModalTitle"] {
+  color: #f8fafc !important;
+  font-weight: 700 !important;
+}
+
+.neo-modal-body,
+[class*="modalBody"],
+[class*="ModalBody"] {
+  background-color: #0f172a !important;
+  color: #f8fafc !important;
+}
+
+.neo-modal-footer,
+[class*="modalFooter"],
+[class*="ModalFooter"] {
+  background-color: #1e293b !important;
+  border-top: 1px solid #334155 !important;
+}
+
+.neo-modal-close-btn,
+[class*="modalClose"],
+[class*="ModalClose"] {
+  color: #94a3b8 !important;
+  background-color: #1e293b !important;
+  border: 1px solid #334155 !important;
+  border-radius: 8px !important;
+}
+
+.neo-modal-close-btn:hover,
+[class*="modalClose"]:hover,
+[class*="ModalClose"]:hover {
+  color: var(--brand-primary, #4f46e5) !important;
+  background-color: #334155 !important;
+  border-color: var(--brand-primary, #4f46e5) !important;
+}
+
+/* Botones */
+.neo-btn-primary,
+button.neo-btn-primary {
+  background: var(--brand-gradient, linear-gradient(135deg, #4f46e5 0%, #3b82f6 50%, #10b981 100%)) !important;
+  color: #ffffff !important;
+  border: none !important;
+  font-weight: 800 !important;
+  letter-spacing: 0.02em !important;
+  box-shadow: 0 4px 16px var(--brand-glow, rgba(79, 70, 229, 0.4)) !important;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1) !important;
+}
+
+.neo-btn-primary:hover:not(:disabled),
+button.neo-btn-primary:hover:not(:disabled) {
+  filter: brightness(1.12) !important;
+  transform: translateY(-1.5px) !important;
+  box-shadow: 0 6px 22px var(--brand-glow, rgba(79, 70, 229, 0.55)) !important;
+}
+
+.neo-btn-primary:active:not(:disabled),
+button.neo-btn-primary:active:not(:disabled) {
+  transform: translateY(0) scale(0.98) !important;
+}
+
+.neo-btn-secondary,
+button.neo-btn-secondary {
+  background-color: #1e293b !important;
+  border: 1.5px solid rgba(255, 255, 255, 0.14) !important;
+  color: #f8fafc !important;
+  font-weight: 700 !important;
+  transition: all 0.18s cubic-bezier(0.4, 0, 0.2, 1) !important;
+}
+
+.neo-btn-secondary:hover:not(:disabled),
+button.neo-btn-secondary:hover:not(:disabled) {
+  background-color: #27354a !important;
+  border-color: rgba(255, 255, 255, 0.25) !important;
+  color: #ffffff !important;
+  transform: translateY(-1px) !important;
+}
+
+.neo-btn-secondary:active:not(:disabled),
+button.neo-btn-secondary:active:not(:disabled) {
+  transform: translateY(0) scale(0.98) !important;
+}
+
+.neo-btn-outline,
+button.neo-btn-outline {
+  background-color: transparent !important;
+  border: 1px solid #334155 !important;
+  color: #94a3b8 !important;
+}
+
+.neo-btn-outline:hover:not(:disabled),
+button.neo-btn-outline:hover:not(:disabled) {
+  background-color: var(--brand-hover-bg, rgba(79, 70, 229, 0.12)) !important;
+  border-color: var(--brand-primary, #4f46e5) !important;
+  color: var(--brand-primary, #4f46e5) !important;
+}
+
+.neo-btn-ghost,
+button.neo-btn-ghost {
+  background-color: transparent !important;
+  color: #94a3b8 !important;
+}
+
+.neo-btn-ghost:hover:not(:disabled),
+button.neo-btn-ghost:hover:not(:disabled) {
+  background-color: var(--brand-hover-bg, rgba(79, 70, 229, 0.1)) !important;
+  color: var(--brand-secondary, #10b981) !important;
+}
+
+.neo-btn-danger,
+button.neo-btn-danger {
+  background-color: #ef4444 !important;
+  color: #ffffff !important;
+  border: none !important;
+}
+
+.neo-btn-danger:hover:not(:disabled),
+button.neo-btn-danger:hover:not(:disabled) {
+  background-color: #dc2626 !important;
+}
+
+.neo-action-icon-btn {
+  background-color: #1e293b !important;
+  border: 1px solid #334155 !important;
+  color: #94a3b8 !important;
+  transition: all var(--transition-fast, 0.15s ease) !important;
+}
+
+.neo-action-icon-btn:hover {
+  background-color: var(--brand-subtle-bg, rgba(79, 70, 229, 0.15)) !important;
+  border-color: var(--brand-primary, #4f46e5) !important;
+  color: var(--brand-primary, #4f46e5) !important;
+  transform: scale(1.08) !important;
+}
+
+.neo-search-input {
+  background-color: #0b0f19 !important;
+  border: 1px solid rgba(255, 255, 255, 0.12) !important;
+  color: #f8fafc !important;
+}
+
+.neo-search-input:focus {
+  border-color: var(--brand-primary, #4f46e5) !important;
+  box-shadow: 0 0 0 2px var(--brand-glow, rgba(79, 70, 229, 0.25)) !important;
+}
+
+/* ========================================================
+   CORRECCIÓN GLOBAL DE ICONOS SVG (LUCIDE / CREDIT CARD)
+   ======================================================== */
+svg.lucide,
+svg[class*="lucide"],
+svg {
+  fill: none;
+}
+
+/* Evitar que rectángulos de iconos (como CreditCard) tengan fondo negro por defecto del navegador */
+svg rect,
+svg.lucide rect,
+svg[class*="lucide"] rect,
+.lucide-credit-card,
+.lucide-credit-card rect,
+svg.lucide-credit-card rect {
+  fill: none !important;
+}
+
+/* ========================================================
+   COMPORTAMIENTO GLOBAL DE ESTADOS ACTIVOS (SIN HOVER DISTORSIONADO)
+   ======================================================== */
+.active:hover,
+[aria-selected="true"]:hover,
+[aria-current="page"]:hover,
+.tabBtnActive:hover,
+.configTabBtnActive:hover,
+.sidebarNavItem.active:hover,
+.sidebar-nav-item.active:hover {
+  transform: none !important;
+  filter: none !important;
+  cursor: default;
+}
+
+/* ========================================================
+   SPINNERS GLOBALES DE CARGA (CSS NATIVO)
+   ======================================================== */
+@keyframes neoSpin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.neo-spinner {
+  width: 2rem;
+  height: 2rem;
+  border: 3px solid rgba(255, 255, 255, 0.18);
+  border-top-color: var(--brand-primary, #4f46e5);
+  border-radius: 50%;
+  animation: neoSpin 0.75s linear infinite;
+  display: inline-block;
+  box-sizing: border-box;
+}
+
+.neo-spinner-sm {
+  width: 1.25rem;
+  height: 1.25rem;
+  border-width: 2px;
+}
+
+.neo-spinner-lg {
+  width: 3rem;
+  height: 3rem;
+  border-width: 3.5px;
+}
+
+.neo-loading-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 240px;
+  width: 100%;
+}

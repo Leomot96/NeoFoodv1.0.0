@@ -1,0 +1,261 @@
+/* ========================================================
+   CSS MODULE: CONTROL DE CAJA
+   ======================================================== */
+
+.cajaPage,
+.caja-page {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  width: 100%;
+}
+
+.cajaHeader,
+.caja-header {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  justify-content: space-between;
+}
+
+@media (min-width: 640px) {
+
+  .cajaHeader,
+  .caja-header {
+    flex-direction: row;
+    align-items: center;
+  }
+}
+
+.cajaTitle,
+.caja-title {
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: var(--text-main);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.cajaSubtitle,
+.caja-subtitle {
+  font-size: 0.875rem;
+  color: var(--text-muted);
+  margin-top: 0.25rem;
+}
+
+.cajaStatusBadge,
+.caja-status-badge {
+  padding: 0.5rem 1rem;
+  border-radius: var(--radius-md);
+  font-weight: 700;
+  font-size: 0.875rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  align-self: flex-start;
+}
+
+.cajaStatusBadgeOpen,
+.caja-status-badge.open {
+  background-color: var(--color-success-bg, rgba(16, 185, 129, 0.12));
+  color: var(--color-success, #10b981);
+  border: 1px solid rgba(16, 185, 129, 0.3);
+}
+
+.cajaStatusBadgeClosed,
+.caja-status-badge.closed {
+  background-color: var(--color-danger-bg, rgba(239, 68, 68, 0.12));
+  color: var(--color-danger, #ef4444);
+  border: 1px solid rgba(239, 68, 68, 0.3);
+}
+
+/* Grid Layout */
+.cajaGrid,
+.caja-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+}
+
+@media (min-width: 1024px) {
+
+  .cajaGrid,
+  .caja-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.cajaCard,
+.caja-card {
+  background-color: var(--bg-card, #0f172a);
+  border: 1px solid var(--border-subtle, #1e293b);
+  border-radius: var(--radius-xl);
+  padding: 1.5rem;
+  padding-bottom: 0.5rem;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.2);
+  display: flex;
+  flex-direction: column;
+}
+
+.cajaCardTitle,
+.caja-card-title {
+  font-size: 1.125rem;
+  font-weight: 700;
+  color: var(--text-main);
+  margin-bottom: 1rem;
+}
+
+/* Botones de Movimientos */
+.cajaMovementGrid,
+.caja-movement-grid {
+  display: flex;
+  gap: 1rem;
+}
+
+.cajaBtnMovement,
+.caja-btn-movement {
+  flex: 1;
+  padding: 1.25rem;
+  border-radius: var(--radius-lg);
+  font-weight: 700;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  border: 1px solid transparent;
+  font-size: 1rem;
+}
+
+.cajaBtnMovementIn,
+.caja-btn-movement.in {
+  background-color: var(--color-success-bg, rgba(16, 185, 129, 0.12));
+  color: var(--color-success, #10b981);
+  border-color: rgba(16, 185, 129, 0.3);
+}
+
+.cajaBtnMovementIn:hover,
+.caja-btn-movement.in:hover {
+  background-color: rgba(16, 185, 129, 0.2);
+}
+
+.cajaBtnMovementOut,
+.caja-btn-movement.out {
+  background-color: var(--color-danger-bg, rgba(239, 68, 68, 0.12));
+  color: var(--color-danger, #ef4444);
+  border-color: rgba(239, 68, 68, 0.3);
+}
+
+.cajaBtnMovementOut:hover,
+.caja-btn-movement.out:hover {
+  background-color: rgba(239, 68, 68, 0.2);
+}
+
+/* Resumen del Turno */
+.cajaSummaryBlock,
+.caja-summary-block {
+  padding: 1rem;
+  background-color: var(--bg-card-secondary, #1e293b);
+  border: 1px solid var(--border-subtle, #1e293b);
+  border-radius: var(--radius-lg);
+  margin-bottom: 1.25rem;
+}
+
+.cajaSummaryRow,
+.caja-summary-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.cajaTotalSold,
+.caja-total-sold {
+  font-size: 1.5rem;
+  font-weight: 900;
+  color: var(--text-main);
+}
+
+.cajaBreakdownList,
+.caja-breakdown-list {
+  margin-top: 0.75rem;
+  padding-top: 0.75rem;
+  border-top: 1px solid var(--border-subtle, #1e293b);
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  font-size: 0.875rem;
+  color: var(--text-secondary);
+}
+
+.cajaExpectedBox,
+.caja-expected-box {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+  background-color: var(--brand-hover-bg, rgba(79, 70, 229, 0.1));
+  border: 1px solid var(--brand-border-subtle, rgba(79, 70, 229, 0.3));
+  border-radius: var(--radius-lg);
+  margin-bottom: 1.25rem;
+}
+
+.cajaExpectedValue,
+.caja-expected-value {
+  font-size: 1.5rem;
+  font-weight: 900;
+  color: var(--brand-primary, #4f46e5);
+}
+
+/* Sesiones Anteriores (Historial) */
+.cajaSessionCard,
+.caja-session-card {
+  border: 1px solid var(--border-subtle, #1e293b);
+  border-radius: var(--radius-lg);
+  background-color: var(--bg-card-secondary, #1e293b);
+  overflow: hidden;
+  margin-bottom: 0.2rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.cajaSessionHeader,
+.caja-session-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.75rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.cajaSessionToggleBtn,
+.caja-session-toggle-btn {
+  width: 100%;
+  padding: 0.6rem;
+  background-color: var(--bg-subtle);
+  border: none;
+  border-top: 1px solid var(--border-color);
+  color: var(--text-secondary);
+  font-size: 0.75rem;
+  font-weight: 700;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.35rem;
+  cursor: pointer;
+  transition: background-color var(--transition-fast);
+}
+
+.cajaSessionToggleBtn:hover,
+.caja-session-toggle-btn:hover {
+  background-color: var(--brand-hover-bg, rgba(79, 70, 229, 0.12));
+  color: #f8fafc;
+}
+
+.cajaSessionDetails,
+.caja-session-details {
+  padding: 1rem;
+  background-color: var(--bg-surface);
+  border-top: 1px solid var(--border-color);
+}

@@ -1,0 +1,154 @@
+/* ========================================================
+   CSS MODULE: SALES CHART (GRÁFICO DE VENTAS DASHBOARD)
+   ======================================================== */
+
+.card {
+  background-color: var(--bg-card, #0f172a);
+  padding: 1rem 1.25rem;
+  border-radius: var(--radius-lg, 0.85rem);
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.2), 0 2px 4px -2px rgba(0, 0, 0, 0.2);
+  border: 1px solid var(--border-subtle, #1e293b);
+  height: 295px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 0.65rem;
+}
+
+.title {
+  font-size: 0.975rem;
+  font-weight: 700;
+  color: var(--text-main);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.subtitle {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  margin-top: 0.125rem;
+}
+
+.total {
+  text-align: right;
+}
+
+.totalLabel {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  font-weight: 600;
+  color: var(--text-muted);
+  display: block;
+}
+
+.totalVal {
+  font-size: 1.125rem;
+  font-weight: 900;
+  color: #10b981;
+}
+
+.tooltip {
+  background-color: #131c2e;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  padding: 0.75rem;
+  border-radius: var(--radius-md);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.6);
+}
+
+.tooltipLabel {
+  font-weight: 700;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--text-muted);
+  margin-bottom: 0.25rem;
+}
+
+.tooltipVal {
+  color: #10b981;
+  font-weight: 800;
+  font-size: 1.05rem;
+}
+
+/* Compatibilidad Global */
+.sales-chart-card {
+  background-color: var(--bg-surface);
+  padding: 1.5rem;
+  border-radius: var(--radius-lg);
+  box-shadow: var(--card-shadow);
+  border: 1px solid var(--border-color);
+  height: 400px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.sales-chart-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1.5rem;
+}
+
+.sales-chart-title {
+  font-size: 1.125rem;
+  font-weight: 700;
+  color: var(--text-main);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.sales-chart-subtitle {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  margin-top: 0.125rem;
+}
+
+.sales-chart-total {
+  text-align: right;
+}
+
+.sales-chart-total-label {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  font-weight: 600;
+  color: var(--text-muted);
+  display: block;
+}
+
+.sales-chart-total-val {
+  font-size: 1.125rem;
+  font-weight: 900;
+  color: var(--primary);
+}
+
+.chart-tooltip {
+  background-color: var(--bg-surface);
+  border: 1px solid var(--border-color);
+  padding: 0.75rem;
+  border-radius: var(--radius-md);
+  box-shadow: var(--card-shadow-hover);
+}
+
+.chart-tooltip-label {
+  font-weight: 700;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--text-muted);
+  margin-bottom: 0.25rem;
+}
+
+.chart-tooltip-val {
+  color: var(--primary);
+  font-weight: 800;
+  font-size: 1rem;
+}

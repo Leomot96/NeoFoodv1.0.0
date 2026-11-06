@@ -1,0 +1,344 @@
+/* ==========================================================================
+   LOGIN PAGE - DYNAMIC BRAND THEME
+   ========================================================================== */
+
+.pageContainer {
+  min-height: 100vh;
+  width: 100%;
+  background: radial-gradient(circle at top right, #1a253a 0%, #0f172a 45%, #0b0f19 100%);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem 1.5rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.glowTopLeft {
+  position: absolute;
+  top: -12%;
+  left: -8%;
+  width: 480px;
+  height: 480px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(79, 70, 229, 0.22) 0%, transparent 70%);
+  filter: blur(60px);
+  pointer-events: none;
+}
+
+.glowBottomRight {
+  position: absolute;
+  bottom: -12%;
+  right: -8%;
+  width: 480px;
+  height: 480px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(16, 185, 129, 0.16) 0%, transparent 70%);
+  filter: blur(60px);
+  pointer-events: none;
+}
+
+.loginCard {
+  width: 100%;
+  max-width: 480px;
+  position: relative;
+  z-index: 10;
+  animation: fadeIn 0.35s ease-out;
+  border-radius: 20px;
+  padding: 1.75rem 0rem;
+}
+
+.brandHeader {
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
+.brandLogoBox {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 80px;
+  height: 80px;
+  border-radius: 20px;
+  background: linear-gradient(135deg, #1e293b 0%, #131c2e 100%);
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.4);
+  margin-bottom: 1.25rem;
+  border: none;
+  overflow: hidden;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.brandLogoBox:hover {
+  transform: translateY(-2px) scale(1.03);
+  box-shadow: 0 16px 34px -6px rgba(79, 70, 229, 0.4);
+}
+
+.brandLogoImg {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.brandLogoPlaceholder {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--brand-gradient, linear-gradient(135deg, #4f46e5 0%, #10b981 100%));
+}
+
+.brandTitle {
+  font-family: 'Montserrat', 'Plus Jakarta Sans', sans-serif;
+  font-size: clamp(1.6rem, 3.5vw, 2.25rem);
+  font-weight: 900;
+  letter-spacing: -0.01em;
+  color: #f8fafc;
+  margin: 0;
+  line-height: 1.18;
+  text-shadow: 0 4px 16px rgba(0, 0, 0, 0.35);
+  word-break: break-word;
+}
+
+.brandSubtitle {
+  text-transform: uppercase;
+  margin-top: 0.5rem;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: #94a3b8;
+  letter-spacing: 0.12em;
+}
+
+.formBox {
+  background: #131c2e;
+  padding: 1rem 2.5rem;
+}
+
+.errorAlert {
+  margin-bottom: 1.25rem;
+  padding: 0.875rem 1rem;
+  border-radius: 12px;
+  background: rgba(239, 68, 68, 0.15);
+  border: 1px solid rgba(239, 68, 68, 0.35);
+  color: #fca5a5;
+  font-size: 0.85rem;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 0.625rem;
+}
+
+.formGroup {
+  margin-bottom: 1.35rem;
+}
+
+.fieldLabel {
+  display: block;
+  font-size: 0.8125rem;
+  font-weight: 700;
+  color: #cbd5e1;
+  margin-bottom: 0.5rem;
+  letter-spacing: 0.01em;
+}
+
+.inputWrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.inputIcon {
+  position: absolute;
+  left: 1rem;
+  color: #64748b;
+  pointer-events: none;
+  display: flex;
+  align-items: center;
+  transition: color 0.2s ease;
+}
+
+.inputWrapper:focus-within .inputIcon {
+  color: #818cf8;
+}
+
+.inputField {
+  width: 100%;
+  padding: 0.875rem 1rem 0.875rem 2.85rem;
+  background: #0b0f19;
+  border: 1.5px solid rgba(255, 255, 255, 0.14);
+  border-radius: 12px;
+  color: #f8fafc;
+  font-size: 0.95rem;
+  font-weight: 500;
+  transition: all 0.2s ease;
+  outline: none;
+}
+
+.inputField::placeholder {
+  color: #64748b;
+}
+
+.inputField:hover:not(:focus) {
+  border-color: rgba(255, 255, 255, 0.25);
+}
+
+.inputField:focus {
+  border-color: #4f46e5;
+  background: #0b0f19;
+  box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.25);
+}
+
+.passwordToggle {
+  position: absolute;
+  right: 0.75rem;
+  background: transparent;
+  border: none;
+  color: #64748b;
+  padding: 0.35rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px;
+  transition: color 0.2s ease, background 0.2s ease;
+}
+
+.passwordToggle:hover {
+  color: #f8fafc;
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.submitBtn {
+  width: 100%;
+  margin-top: 1.75rem;
+  padding: 0.95rem 1.25rem;
+  border-radius: 12px;
+  border: none;
+  background: var(--brand-gradient, linear-gradient(135deg, #4f46e5 0%, #3b82f6 50%, #10b981 100%));
+  color: #ffffff;
+  font-size: 0.95rem;
+  font-weight: 800;
+  letter-spacing: 0.02em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  cursor: pointer;
+  box-shadow: 0 10px 25px -5px rgba(79, 70, 229, 0.4);
+  transition: all 0.2s ease;
+}
+
+.submitBtn:hover:not(:disabled) {
+  transform: translateY(-1px);
+  box-shadow: 0 14px 28px -5px rgba(79, 70, 229, 0.55);
+  background: linear-gradient(135deg, #4338ca 0%, #2563eb 50%, #059669 100%);
+}
+
+.submitBtn:active:not(:disabled) {
+  transform: translateY(0);
+}
+
+.submitBtn:disabled {
+  opacity: 0.65;
+  cursor: not-allowed;
+}
+
+.spinner {
+  width: 20px;
+  height: 20px;
+  border: 2.5px solid rgba(255, 255, 255, 0.3);
+  border-top-color: #ffffff;
+  border-radius: 50%;
+  animation: spin 0.75s linear infinite;
+}
+
+.footerText {
+  margin-bottom: 2rem;
+  text-align: center;
+  font-size: 0.75rem;
+  color: #64748b;
+  font-weight: 500;
+}
+
+.footerText strong {
+  color: #94a3b8;
+  font-weight: 700;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.loginLogoBox {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 0.25rem;
+}
+
+.loginIsotipoImg {
+  height: 60px;
+  width: auto;
+  object-fit: contain;
+  display: block;
+  filter: drop-shadow(0 2px 6px rgba(79, 70, 229, 0.15));
+}
+
+.loginLogoTextImg {
+  height: 40px;
+  width: auto;
+  object-fit: contain;
+  display: block;
+  margin-top: 0.75rem;
+  margin-bottom: 1rem;
+}
+
+.footer {
+  text-align: center;
+  padding-top: 16px;
+  padding-bottom: max(12px, env(safe-area-inset-bottom));
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+
+.footerBrandRow {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  opacity: 0.85;
+  margin-bottom: 2px;
+}
+
+.footerIsotipo {
+  height: 18px;
+  width: auto;
+}
+
+.footerLogo {
+  height: 16px;
+  width: auto;
+}
+
+.footerTagline {
+  font-size: 11px;
+  color: var(--text-dim);
+  font-weight: 500;
+}
